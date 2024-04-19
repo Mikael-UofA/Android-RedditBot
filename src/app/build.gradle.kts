@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation("com.github.masecla22:Reddit4J:master-SNAPSHOT")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-firestore")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
