@@ -9,7 +9,6 @@ public class UserAgent {
     private String agentAuthorName;
 
     public UserAgent(){
-
     }
     public UserAgent(String agentUsername, String agentPass, String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
         this.agentUsername = agentUsername;

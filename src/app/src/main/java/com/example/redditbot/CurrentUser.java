@@ -15,7 +15,7 @@ public class CurrentUser {
         return instance;
     }
 
-    public void Initialization(String deviceId) {
+    public void Initialization() {
         // Create file
     }
 
