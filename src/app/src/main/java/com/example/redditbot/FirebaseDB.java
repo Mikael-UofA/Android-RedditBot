@@ -17,15 +17,18 @@ import java.util.Objects;
 
 public class FirebaseDB {
 
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final CollectionReference agentCollection = db.collection("Agents");
-    final CollectionReference userCollection = db.collection("Users");
+    private static final FirebaseDB instance = new FirebaseDB();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference agentCollection = db.collection("Agents");
+    private final CollectionReference userCollection = db.collection("Users");
     final String agentsTAG = "Agents";
     final String usersTAG = "Users";
 
-    public interface GetBooleanCallBack {
-        void onResult(Boolean bool);
+    private FirebaseDB() {
     }
+    public static FirebaseDB getInstance() { return instance; }
+
+    public interface GetBooleanCallBack { void onResult(Boolean bool); }
 
     public void userExists(String username, GetBooleanCallBack callBack) {
         userCollection
