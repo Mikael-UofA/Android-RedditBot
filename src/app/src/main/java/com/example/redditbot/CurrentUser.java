@@ -1,5 +1,7 @@
 package com.example.redditbot;
 
+import java.util.ArrayList;
+
 import masecla.reddit4j.client.Reddit4J;
 import masecla.reddit4j.client.UserAgentBuilder;
 
@@ -11,6 +13,7 @@ public class CurrentUser {
     private String pass;
     private String agentId;
     private UserAgent agent;
+    private SubredditList subreddits;
 
     private CurrentUser() {
     }
@@ -82,5 +85,13 @@ public class CurrentUser {
 
     public void setAgent(UserAgent agent) {
         this.agent = agent;
+    }
+
+    public SubredditList getSubreddits() {
+        return subreddits;
+    }
+
+    public void setSubreddits(SubredditList subreddits) {
+        this.subreddits = subreddits;
     }
 }

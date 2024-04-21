@@ -10,6 +10,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,10 @@ public class FirebaseDB {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final CollectionReference agentCollection = db.collection("Agents");
     private final CollectionReference userCollection = db.collection("Users");
+    private final CollectionReference subredditCollection = db.collection("Subreddits");
     final String agentsTAG = "Agents";
     final String usersTAG = "Users";
+    final String subredditsTAG = "Subreddits";
 
     private FirebaseDB() {
     }
@@ -80,15 +83,8 @@ public class FirebaseDB {
                 });
     }
     public void createAgent(UserAgent agent) {
-        CurrentUser user = CurrentUser.getInstance();
         agentCollection
                 .add(agent)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        user.setAgentId(documentReference.getId());
-                    }
-                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -96,16 +92,18 @@ public class FirebaseDB {
                     }
                 });
     }
-    public void getAgent(String agentId) {
+    public void getAgent() {
         CurrentUser user = CurrentUser.getInstance();
         agentCollection
-                .document(agentId)
+                .whereEqualTo("agentAuthorName", user.getUsername())
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        UserAgent agent = documentSnapshot.toObject(UserAgent.class);
-                        user.setAgent(agent);
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            UserAgent agent = documentSnapshot.toObject(UserAgent.class);
+                            user.setAgent(agent);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -127,10 +125,7 @@ public class FirebaseDB {
                             user.setUsername(username);
                             user.setPass(pass);
 
-                            String agentId = documentSnapshot.getString("agentId");
-                            if (agentId != null) {
-                                getAgent(agentId);
-                            }
+                            getAgent();
                             callBack.onResult(true);
                         } else {
                             callBack.onResult(false);
@@ -203,6 +198,16 @@ public class FirebaseDB {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(usersTAG, "Error while updating password: ", e);
+                    }
+                });
+    }
+    public void addSubreddit(Subreddit subreddit) {
+        subredditCollection
+                .add(subreddit)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(subredditsTAG, "Error while adding subreddit: ", e);
                     }
                 });
     }

@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ChangeFragment(new HomeFragment());
+        ChangeFragment(new HomeNavHost());
 
         binding.BottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
-                ChangeFragment(new HomeFragment());
+                ChangeFragment(new HomeNavHost());
             } else if (id == R.id.nav_account) {
                 ChangeFragment(new HomeFragment());
             } else if (id == R.id.nav_settings) {

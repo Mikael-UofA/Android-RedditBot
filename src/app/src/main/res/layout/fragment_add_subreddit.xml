@@ -63,7 +63,10 @@
             android:id="@+id/max_posts_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_max_posts_edit" />
+            android:hint="@string/add_max_posts_edit"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
+            android:maxLength="2"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
