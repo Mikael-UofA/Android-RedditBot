@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +37,15 @@ public class HomeFragment extends Fragment {
         ListView subreddits = view.findViewById(R.id.subreddit_list);
         FloatingActionButton addButton = view.findViewById(R.id.add_button);
 
+        subreddits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Subreddit subreddit = (Subreddit) parent.getItemAtPosition(position);
+                Bundle args = new Bundle();
+                args.putSerializable("subreddit", subreddit);
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_editSubredditFragment, args);
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

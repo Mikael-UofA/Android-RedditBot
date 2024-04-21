@@ -28,6 +28,16 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String str = stringList.get(position);
         holder.textView.setText(str);
+
+        // Set click listener on the end drawable
+        holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_delete, 0);
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            final int i = holder.getAdapterPosition();
+            @Override
+            public void onClick(View v) {
+                removeItem(i);
+            }
+        });
     }
 
     @Override
@@ -35,6 +45,10 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder
         return stringList.size();
     }
 
+    public void removeItem(int position) {
+        stringList.remove(position);
+        notifyItemRemoved(position);
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
 
@@ -42,5 +56,9 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
         }
+    }
+
+    public ArrayList<String> getStringList() {
+        return stringList;
     }
 }

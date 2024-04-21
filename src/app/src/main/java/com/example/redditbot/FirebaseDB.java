@@ -4,12 +4,15 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
@@ -208,6 +211,33 @@ public class FirebaseDB {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(subredditsTAG, "Error while adding subreddit: ", e);
+                    }
+                });
+    }
+    public void updateSubreddit(Subreddit subreddit) {
+        subredditCollection
+                .whereEqualTo("owner", subreddit.getOwner())
+                .whereEqualTo("name", subreddit.getName())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                subredditCollection
+                                        .document(document.getId())
+                                        .update("maxPosts", subreddit.getMaxPosts(),
+                                                "terms", subreddit.getTerms())
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(subredditsTAG, "Error updating document: ", e);
+                                            }
+                                        });
+                            }
+                        } else {
+                            Log.d(subredditsTAG, "Error getting documents: ", task.getException());
+                        }
                     }
                 });
     }

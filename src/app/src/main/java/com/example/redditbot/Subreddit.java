@@ -1,8 +1,9 @@
 package com.example.redditbot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Subreddit {
+public class Subreddit implements Serializable {
     private String owner;
     private String name;
     private Integer maxPosts;

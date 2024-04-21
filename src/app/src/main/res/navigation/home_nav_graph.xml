@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_addSubredditFragment"
             app:destination="@id/addSubredditFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editSubredditFragment"
+            app:destination="@id/editSubredditFragment" />
     </fragment>
     <fragment
         android:id="@+id/addSubredditFragment"
         android:name="com.example.redditbot.AddSubredditFragment"
         android:label="fragment_add_subreddit"
         tools:layout="@layout/fragment_add_subreddit" />
+    <fragment
+        android:id="@+id/editSubredditFragment"
+        android:name="com.example.redditbot.EditSubredditFragment"
+        android:label="fragment_edit_subreddit"
+        tools:layout="@layout/fragment_edit_subreddit" />
 </navigation>
