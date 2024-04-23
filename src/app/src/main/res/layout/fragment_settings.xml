@@ -1,8 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SettingsFragment">
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/dark_blue"/>
+
+            <RelativeLayout
+                android:layout_width="217dp"
+                android:layout_height="75dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/dark_border">
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/agent_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+            <TextView
+                android:id="@+id/agent_username"
+                android:layout_width="215sp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/agent_receiver"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/agent_username"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/agent_clientId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/client_id"
+                android:textSize="11sp"
+                android:textStyle="italic"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="32dp"
+                android:layout_below="@id/agent_app_name"/>
+
+            <TextView
+                android:id="@+id/agent_receiver"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/agent_author"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/agent_receiver"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/agent_author"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:text="@string/agent_author"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+            <ImageView
+                android:layout_width="135dp"
+                android:layout_height="100dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/reddit_avatar"
+                android:contentDescription="@string/image_of_a_reddit_avatar" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,8 @@ package com.example.redditbot;
 
 import java.util.ArrayList;
 
-import masecla.reddit4j.client.Reddit4J;
-import masecla.reddit4j.client.UserAgentBuilder;
+//import masecla.reddit4j.client.Reddit4J;
+//import masecla.reddit4j.client.UserAgentBuilder;
 
 public class CurrentUser {
 
@@ -40,20 +40,20 @@ public class CurrentUser {
         return successful[0];
     }
 
-    public void beginAuthentication() {
-        if (agent == null) {
-            throw new NullPointerException("User does not have a agent");
-        }
-        try {
-            Reddit4J client = Reddit4J.rateLimited().setUsername(agent.getAgentUsername())
-                    .setPassword(agent.getAgentPass())
-                    .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
-                    .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
-            client.connect();
-        } catch (Exception e) {
-            throw new RuntimeException("Something went wrong when connecting client: " + e);
-        }
-    }
+//    public void beginAuthentication() {
+//        if (agent == null) {
+//            throw new NullPointerException("User does not have a agent");
+//        }
+//        try {
+//            Reddit4J client = Reddit4J.rateLimited().setUsername(agent.getAgentUsername())
+//                    .setPassword(agent.getAgentPass())
+//                    .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
+//                    .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
+//            client.connect();
+//        } catch (Exception e) {
+//            throw new RuntimeException("Something went wrong when connecting client: " + e);
+//        }
+//    }
 
     public String getUsername() {
         return username;

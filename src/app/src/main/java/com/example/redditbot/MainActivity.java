@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 ChangeFragment(new HomeNavHost());
             } else if (id == R.id.nav_account) {
-                ChangeFragment(new HomeFragment());
+                ChangeFragment(new AccountFragment());
             } else if (id == R.id.nav_settings) {
                 ChangeFragment(new SettingsFragment());
             }

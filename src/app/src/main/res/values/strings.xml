@@ -16,4 +16,15 @@
     <string name="done_button_text">Done</string>
     <string name="cancel_button_text">Cancel</string>
     <string name="add_term_here">Add term here...</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="sign_out_button_text">Sign Out</string>
+    <string name="your_account">Your Account</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="username">Username</string>
+    <string name="client_id">ID: aQX9sTCv_2zoSf-WTknuHP</string>
+    <string name="client_secret">Secret: 47r89GZwrASVwmIwuv95WpccLM0rAR</string>
+    <string name="agent_author">Author: John Doe</string>
+    <string name="agent_receiver">Receiver: MainUser64</string>
+    <string name="agent_username">Dev: standardBot</string>
+    <string name="image_of_a_reddit_avatar">Image of a reddit avatar</string>
 </resources>

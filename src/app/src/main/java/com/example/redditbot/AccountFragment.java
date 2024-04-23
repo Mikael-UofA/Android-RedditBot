@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,36 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        Button signOut = view.findViewById(R.id.sign_out_button);
+        Button confirm = view.findViewById(R.id.btnConfirm);
+        Button cancel = view.findViewById(R.id.btnCancel);
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeState(signOut, confirm, cancel);
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeState(signOut, confirm, cancel);
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeState(signOut, confirm, cancel);
+            }
+        });
+        return view;
+    }
+
+    public void changeState(Button signOut, Button confirm, Button cancel) {
+        signOut.setVisibility(signOut.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+        confirm.setVisibility(confirm.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+        cancel.setVisibility(cancel.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
     }
 }

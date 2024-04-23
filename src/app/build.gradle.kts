@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation("com.github.masecla22:Reddit4J:master-SNAPSHOT")
+    //implementation("com.github.masecla22:Reddit4J:master-SNAPSHOT")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-firestore")
     implementation(libs.navigation.fragment)
