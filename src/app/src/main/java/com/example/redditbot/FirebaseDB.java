@@ -36,9 +36,10 @@ public class FirebaseDB {
 
     public interface GetBooleanCallBack { void onResult(Boolean bool); }
 
-    public void userExists(String username, GetBooleanCallBack callBack) {
+    public void userExists(GetBooleanCallBack callBack) {
+        CurrentUser user = CurrentUser.getInstance();
         userCollection
-                .document(username).get()
+                .document(user.getDeviceId()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -48,10 +49,11 @@ public class FirebaseDB {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(usersTAG, "Could not fetch user document: " + e);
+                        Log.w(agentsTAG, "Could not fetch user document: " + e);
                     }
                 });
     }
+
     public void agentExists(String id, GetBooleanCallBack callBack) {
         agentCollection
                 .document(id).get()
@@ -72,11 +74,11 @@ public class FirebaseDB {
         CurrentUser user = CurrentUser.getInstance();
         Map<String, String> data = new HashMap<>();
         data.put("username", user.getUsername());
-        data.put("pass", user.getPass());
+        data.put("deviceId", user.getDeviceId());
         data.put("agentId", null);
 
         userCollection
-                .document(user.getUsername())
+                .document(user.getDeviceId())
                 .set(data)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -116,22 +118,19 @@ public class FirebaseDB {
                     }
                 });
     }
-    public void loginUser(String username, String pass, GetBooleanCallBack callBack) {
+    public void loginUser() {
         CurrentUser user = CurrentUser.getInstance();
         userCollection
-                .document(username)
+                .document(user.getDeviceId())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (Objects.equals(pass, documentSnapshot.getString("pass"))) {
-                            user.setUsername(username);
-                            user.setPass(pass);
-
-                            getAgent();
-                            callBack.onResult(true);
+                        if (!documentSnapshot.exists()) {
+                            createUser();
                         } else {
-                            callBack.onResult(false);
+                            user.setUsername(documentSnapshot.getString("username"));
+                            user.setAgentId(documentSnapshot.getString("agentId"));
                         }
                     }
                 })
@@ -170,27 +169,6 @@ public class FirebaseDB {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(agentsTAG, "Error while deleting agent document: ", e);
-                    }
-                });
-    }
-    public void deleteAccount() {
-        CurrentUser user = CurrentUser.getInstance();
-        if (user.getAgentId() != null) {
-            deleteAgent(user.getAgentId());
-        }
-        userCollection.document(user.getUsername()).delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        user.setUsername(null);
-                        user.setPass(null);
-                        System.exit(0);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(usersTAG, "Error while deleting user document: ", e);
                     }
                 });
     }

@@ -15,7 +15,7 @@
     <string name="edit_subreddit">Edit Subreddit</string>
     <string name="done_button_text">Done</string>
     <string name="cancel_button_text">Cancel</string>
-    <string name="add_term_here">Add term here...</string>
+    <string name="add_term_here">Add term here…</string>
     <string name="confirm_button">Confirm</string>
     <string name="sign_out_button_text">Sign Out</string>
     <string name="your_account">Your Account</string>
@@ -35,4 +35,5 @@
     <string name="agent_password">Agent Password</string>
     <string name="agent_username_text">Agent Username</string>
     <string name="delete_add_button">delete/add button</string>
+
 </resources>

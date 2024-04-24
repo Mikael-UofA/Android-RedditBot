@@ -1,6 +1,8 @@
 package com.example.redditbot;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +31,22 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        CurrentUser user = CurrentUser.getInstance();
+
+        @SuppressLint("HardwareIds") String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        user.setDeviceId(deviceId);
+
+        FirebaseDB firebaseDBInstance = FirebaseDB.getInstance();
+        firebaseDBInstance.userExists(new FirebaseDB.GetBooleanCallBack() {
+            @Override
+            public void onResult(Boolean bool) {
+                if (bool) {
+                    firebaseDBInstance.loginUser();
+                } else {
+                    // call the creating stuff
+                }
+            }
         });
         ChangeFragment(new HomeNavHost());
 

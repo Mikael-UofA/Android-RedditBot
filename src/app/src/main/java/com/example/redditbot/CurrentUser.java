@@ -10,7 +10,7 @@ public class CurrentUser {
     private static final CurrentUser instance = new CurrentUser();
     private final FirebaseDB firebaseDBInstance = FirebaseDB.getInstance();
     private String username;
-    private String pass;
+    private String deviceId;
     private String agentId;
     private UserAgent agent;
     private SubredditList subreddits;
@@ -22,22 +22,8 @@ public class CurrentUser {
         return instance;
     }
 
-    public void startInitialization(String username, String pass) {
-        this.username = username;
-        this.pass = pass;
-        firebaseDBInstance.createUser();
-    }
-    public Boolean startLogin(String username, String pass) {
-        this.username = username;
-        this.pass = pass;
-        final Boolean[] successful = {false};
-        firebaseDBInstance.loginUser(username, pass, new FirebaseDB.GetBooleanCallBack() {
-            @Override
-            public void onResult(Boolean bool) {
-                successful[0] = bool;
-            }
-        });
-        return successful[0];
+    public void Initialization() {
+        firebaseDBInstance.loginUser();
     }
 
 //    public void beginAuthentication() {
@@ -63,12 +49,12 @@ public class CurrentUser {
         this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getAgentId() {
