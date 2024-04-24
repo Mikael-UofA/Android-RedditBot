@@ -5,6 +5,7 @@ public class UserAgent {
     private String agentPass;
     private String agentClientId;
     private String agentClientSecret;
+    private String agentReceiver;
     private String agentAppName;
     private String agentAuthorName;
 
@@ -35,11 +36,43 @@ public class UserAgent {
         return agentClientSecret;
     }
 
+    public String getAgentReceiver() {
+        return agentReceiver;
+    }
+
     public String getAgentAppName() {
         return agentAppName;
     }
 
     public String getAgentAuthorName() {
         return agentAuthorName;
+    }
+
+    public void setAgentUsername(String agentUsername) {
+        this.agentUsername = agentUsername;
+    }
+
+    public void setAgentPass(String agentPass) {
+        this.agentPass = agentPass;
+    }
+
+    public void setAgentClientId(String agentClientId) {
+        this.agentClientId = agentClientId;
+    }
+
+    public void setAgentClientSecret(String agentClientSecret) {
+        this.agentClientSecret = agentClientSecret;
+    }
+
+    public void setAgentReceiver(String agentReceiver) {
+        this.agentReceiver = agentReceiver;
+    }
+
+    public void setAgentAppName(String agentAppName) {
+        this.agentAppName = agentAppName;
+    }
+
+    public void setAgentAuthorName(String agentAuthorName) {
+        this.agentAuthorName = agentAuthorName;
     }
 }

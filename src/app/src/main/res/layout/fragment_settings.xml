@@ -24,7 +24,9 @@
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:background="@color/dark_blue"/>
+                android:background="@color/dark_blue2">
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="217dp"
@@ -93,13 +95,25 @@
                 android:textSize="16sp"
                 android:textStyle="italic" />
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="135dp"
                 android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/reddit_avatar"
                 android:contentDescription="@string/image_of_a_reddit_avatar" />
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_delete_button"
+                android:padding="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/delete_add_button" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

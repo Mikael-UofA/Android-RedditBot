@@ -27,4 +27,12 @@
     <string name="agent_receiver">Receiver: MainUser64</string>
     <string name="agent_username">Dev: standardBot</string>
     <string name="image_of_a_reddit_avatar">Image of a reddit avatar</string>
+    <string name="author">Author Name</string>
+    <string name="name_of_your_bot_app">App Name</string>
+    <string name="username_to_send_to">Username to send to</string>
+    <string name="client_secret_text">Client Secret</string>
+    <string name="client_id_text">Client Id</string>
+    <string name="agent_password">Agent Password</string>
+    <string name="agent_username_text">Agent Username</string>
+    <string name="delete_add_button">delete/add button</string>
 </resources>
