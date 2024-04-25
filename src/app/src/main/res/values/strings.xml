@@ -35,5 +35,7 @@
     <string name="agent_password">Agent Password</string>
     <string name="agent_username_text">Agent Username</string>
     <string name="delete_add_button">delete/add button</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logo">Logo</string>
 
 </resources>

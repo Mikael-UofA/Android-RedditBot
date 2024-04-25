@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
@@ -34,6 +36,11 @@ public class AccountFragment extends Fragment {
         Button signOut = view.findViewById(R.id.sign_out_button);
         Button confirm = view.findViewById(R.id.btnConfirm);
         Button cancel = view.findViewById(R.id.btnCancel);
+        TextInputEditText usernameText = view.findViewById(R.id.etName);
+
+        CurrentUser user = CurrentUser.getInstance();
+
+        usernameText.setText(user.getUsername());
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

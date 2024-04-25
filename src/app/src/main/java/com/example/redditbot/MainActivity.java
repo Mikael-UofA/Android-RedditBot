@@ -32,22 +32,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        CurrentUser user = CurrentUser.getInstance();
 
-        @SuppressLint("HardwareIds") String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        user.setDeviceId(deviceId);
-
-        FirebaseDB firebaseDBInstance = FirebaseDB.getInstance();
-        firebaseDBInstance.userExists(new FirebaseDB.GetBooleanCallBack() {
-            @Override
-            public void onResult(Boolean bool) {
-                if (bool) {
-                    firebaseDBInstance.loginUser();
-                } else {
-                    // call the creating stuff
-                }
-            }
-        });
         ChangeFragment(new HomeNavHost());
 
         binding.BottomNavView.setOnItemSelectedListener(item -> {

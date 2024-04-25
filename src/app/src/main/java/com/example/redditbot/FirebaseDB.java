@@ -54,6 +54,25 @@ public class FirebaseDB {
                 });
     }
 
+    public void usernameExists(String username, GetBooleanCallBack callBack) {
+        CurrentUser user = CurrentUser.getInstance();
+        userCollection
+                .whereEqualTo("username", username.toLowerCase())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        callBack.onResult(!queryDocumentSnapshots.isEmpty());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(agentsTAG, "Could not fetch user document: " + e);
+                    }
+                });
+    }
+
     public void agentExists(String id, GetBooleanCallBack callBack) {
         agentCollection
                 .document(id).get()
