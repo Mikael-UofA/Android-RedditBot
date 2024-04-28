@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,7 +24,8 @@ public class AddSubredditFragment extends Fragment {
     EditText subredditName;
     EditText subredditMaxPosts;
     EditText subredditTerm;
-
+    ImageButton addTerm;
+    TextView termsText;
     ArrayList<String> terms = new ArrayList<>();
     public AddSubredditFragment() {
         // Required empty public constructor
@@ -42,17 +45,39 @@ public class AddSubredditFragment extends Fragment {
         subredditName = view.findViewById(R.id.name_edit);
         subredditMaxPosts = view.findViewById(R.id.max_posts_edit);
         subredditTerm = view.findViewById(R.id.terms_edit);
+        addTerm = view.findViewById(R.id.add_term);
+        termsText = view.findViewById(R.id.terms_displayed);
 
         Button confirmButton = view.findViewById(R.id.complete_button);
 
+        addTerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (terms.size() < 7 && validTerm()) {
+                    terms.add(subredditMaxPosts.getText().toString().trim());
+                    termsText.setText(displayTerm());
+                }
+            }
+        });
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validCondition()) {
-                    Subreddit newSubreddit = new Subreddit(CurrentUser.getInstance().getUsername(), subredditName.getText().toString(),
-                            Integer.getInteger(subredditMaxPosts.getText().toString()), terms);
-                    firebaseDB.addSubreddit(newSubreddit);
-                    Navigation.findNavController(view).popBackStack();
+                    String name = subredditName.getText().toString();
+                    Integer maxPosts = Integer.getInteger(subredditMaxPosts.getText().toString());
+                    Subreddit newSubreddit = new Subreddit(CurrentUser.getInstance().getUsername(),
+                            name, maxPosts, terms);
+                    firebaseDB.userSubredditAlreadyExists(name, new FirebaseDB.GetBooleanCallBack() {
+                        @Override
+                        public void onResult(Boolean bool) {
+                            if (!bool) {
+                                firebaseDB.addSubreddit(newSubreddit);
+                                Navigation.findNavController(view).popBackStack();
+                            } else {
+                                // Didn't work
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -61,20 +86,31 @@ public class AddSubredditFragment extends Fragment {
         return view;
     }
 
+    public Boolean validTerm() {
+        return !terms.contains(subredditMaxPosts.getText().toString().trim());
+    }
     public Boolean validCondition() {
-        SubredditList subreddits = CurrentUser.getInstance().getSubreddits();
         if (subredditName == null || subredditMaxPosts == null || terms.isEmpty()) {
             return false;
         }
-        for (Subreddit subreddit : subreddits.getSubreddits()) {
-            if (Objects.equals(subreddit.getName(), subredditName.getText().toString())) {
-                return false;
-            }
-        }
+
         Integer maxPosts = Integer.getInteger(subredditMaxPosts.getText().toString().trim());
         if (maxPosts == null || maxPosts > 20 || maxPosts < 1) {
             return false;
         }
         return terms.size() <= 7;
+    }
+
+    public String displayTerm() {
+        StringBuilder text = new StringBuilder("Terms: ");
+
+        if (!terms.isEmpty()) {
+            for (String term : terms) {
+                text.append(term).append(", ");
+            }
+            text = new StringBuilder(text.substring(0, text.length() - 2));
+        }
+
+        return text.toString();
     }
 }

@@ -50,13 +50,5 @@
         android:hint="@string/name_of_your_bot_app"
         android:inputType="text"
         android:autofillHints="username"/>
-    <EditText
-        android:id="@+id/edit_text_author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="30"
-        android:hint="@string/author"
-        android:inputType="text"
-        android:autofillHints="username"/>
 
 </LinearLayout>

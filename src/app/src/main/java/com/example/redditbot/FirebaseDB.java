@@ -73,19 +73,22 @@ public class FirebaseDB {
                 });
     }
 
-    public void agentExists(String id, GetBooleanCallBack callBack) {
-        agentCollection
-                .document(id).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void userSubredditAlreadyExists(String subreddit, GetBooleanCallBack callBack) {
+        CurrentUser user = CurrentUser.getInstance();
+        subredditCollection
+                .whereEqualTo("owner", user.getUsername())
+                .whereEqualTo("name", subreddit)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        callBack.onResult(documentSnapshot.exists());
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        callBack.onResult(!queryDocumentSnapshots.isEmpty());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(agentsTAG, "Could not fetch user document: " + e);
+                        Log.w(subredditsTAG, "Error while fetching subreddit document: " + e);
                     }
                 });
     }
@@ -109,6 +112,14 @@ public class FirebaseDB {
     public void createAgent(UserAgent agent) {
         agentCollection
                 .add(agent)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        CurrentUser user = CurrentUser.getInstance();
+                        user.setAgentId(documentReference.getId());
+                        updateUser();
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -150,6 +161,7 @@ public class FirebaseDB {
                         } else {
                             user.setUsername(documentSnapshot.getString("username"));
                             user.setAgentId(documentSnapshot.getString("agentId"));
+                            getAgent();
                         }
                     }
                 })
@@ -174,6 +186,7 @@ public class FirebaseDB {
                                     public void onSuccess(Void unused) {
                                         user.setAgentId(null);
                                         user.setAgent(null);
+                                        updateUser();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -188,16 +201,6 @@ public class FirebaseDB {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(agentsTAG, "Error while deleting agent document: ", e);
-                    }
-                });
-    }
-    public void updatePass(String newPass) {
-        CurrentUser user = CurrentUser.getInstance();
-        userCollection.document(user.getUsername()).update("pass", newPass)
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(usersTAG, "Error while updating password: ", e);
                     }
                 });
     }
@@ -235,6 +238,18 @@ public class FirebaseDB {
                         } else {
                             Log.d(subredditsTAG, "Error getting documents: ", task.getException());
                         }
+                    }
+                });
+    }
+    public void updateUser(){
+        CurrentUser user = CurrentUser.getInstance();
+        userCollection
+                .document(user.getDeviceId())
+                .update("agentId", user.getAgentId())
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(subredditsTAG, "Error updating document: ", e);
                     }
                 });
     }

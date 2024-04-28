@@ -37,13 +37,13 @@ public class AddAgentFragment extends DialogFragment {
         EditText editClientSecret = view.findViewById(R.id.edit_text_secret);
         EditText editReceiver = view.findViewById(R.id.edit_text_receiver);
         EditText editAppName = view.findViewById(R.id.edit_text_app_name);
-        EditText editAuthorName = view.findViewById(R.id.edit_text_author);
 
         String tag = getTag();
         CurrentUser user = CurrentUser.getInstance();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         UserAgent agent = new UserAgent();
+        FirebaseDB db = FirebaseDB.getInstance();
 
         if (Objects.equals(tag, "Add")) {
             return builder.setView(view)
@@ -56,8 +56,9 @@ public class AddAgentFragment extends DialogFragment {
                         agent.setAgentClientSecret(editClientSecret.getText().toString());
                         agent.setAgentReceiver(editReceiver.getText().toString());
                         agent.setAgentAppName(editAppName.getText().toString());
-                        agent.setAgentAuthorName(editAuthorName.getText().toString());
+                        agent.setAgentAuthorName(user.getUsername());
                         user.setAgent(agent);
+                        db.createAgent(user.getAgent());
                         Fragment targetFragment = getTargetFragment();
                         if (targetFragment instanceof SettingsFragment) {
                             ((SettingsFragment) targetFragment).setViews();
@@ -71,13 +72,13 @@ public class AddAgentFragment extends DialogFragment {
             editClientSecret.setVisibility(View.GONE);
             editReceiver.setVisibility(View.GONE);
             editAppName.setVisibility(View.GONE);
-            editAuthorName.setVisibility(View.GONE);
             if (Objects.equals(tag, "Delete")) {
                 return builder.setView(view)
                         .setTitle("Delete Agent")
                         .setNegativeButton("Cancel", null)
                         .setPositiveButton("Confirm", (dialog, which) -> {
                             user.setAgent(null);
+                            db.deleteAgent(user.getAgentId());
                             Fragment targetFragment = getTargetFragment();
                             if (targetFragment instanceof SettingsFragment) {
                                 ((SettingsFragment) targetFragment).setViews();

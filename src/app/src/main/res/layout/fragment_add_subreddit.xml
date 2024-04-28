@@ -94,10 +94,12 @@
                 android:id="@+id/terms_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxEms="21"
                 android:hint="@string/add_terms_edit" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
+            android:id="@+id/add_term"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/add_term"
