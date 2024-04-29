@@ -35,6 +35,7 @@ public class FirebaseDB {
     public static FirebaseDB getInstance() { return instance; }
 
     public interface GetBooleanCallBack { void onResult(Boolean bool); }
+    public interface GetSubredditsCallBack { void onResult(SubredditList list); }
 
     public void userExists(GetBooleanCallBack callBack) {
         CurrentUser user = CurrentUser.getInstance();
@@ -241,6 +242,31 @@ public class FirebaseDB {
                     }
                 });
     }
+
+    public void getSubreddits(GetSubredditsCallBack callBack) {
+        CurrentUser user = CurrentUser.getInstance();
+        subredditCollection
+                .whereEqualTo("owner", user.getUsername())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        SubredditList subredditList = new SubredditList();
+                        for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                            Subreddit subreddit = snapshot.toObject(Subreddit.class);
+                            subredditList.add(subreddit);
+                        }
+                        callBack.onResult(subredditList);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(subredditsTAG, "Error fetching documents: ", e);
+                    }
+                });
+    }
+
     public void updateUser(){
         CurrentUser user = CurrentUser.getInstance();
         userCollection

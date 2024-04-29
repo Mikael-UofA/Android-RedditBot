@@ -6,6 +6,9 @@ import java.util.NoSuchElementException;
 public class SubredditList {
     private final ArrayList<Subreddit> subreddits = new ArrayList<>();
 
+    public SubredditList() {
+    }
+
     /**
      * This adds a subreddit to the list if the subreddit does not exist
      * @param subreddit This is a candidate Subreddit to add

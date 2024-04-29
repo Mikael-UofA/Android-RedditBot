@@ -15,9 +15,9 @@ public class SubredditAdapter extends ArrayAdapter<Subreddit> {
     private final ArrayList<Subreddit> subreddits;
     private final Context context;
 
-    public SubredditAdapter(Context context, ArrayList<Subreddit> subreddits) {
-        super(context, 0, subreddits);
-        this.subreddits = subreddits;
+    public SubredditAdapter(Context context, SubredditList subreddits) {
+        super(context, 0, subreddits.getSubreddits());
+        this.subreddits = subreddits.getSubreddits();
         this.context = context;
     }
 

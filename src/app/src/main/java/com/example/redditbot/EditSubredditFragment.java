@@ -47,6 +47,7 @@ public class EditSubredditFragment extends Fragment {
         }
 
         FirebaseDB firebaseDB = FirebaseDB.getInstance();
+        TextView title = view.findViewById(R.id.add_subreddit_textview);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         EditText addTerm = view.findViewById(R.id.edit_term);
@@ -54,6 +55,9 @@ public class EditSubredditFragment extends Fragment {
         Button cancelButton = view.findViewById(R.id.cancel_button);
 
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");
+        assert subreddit != null;
+        String titleText = "r/ " + subreddit.getName();
+        title.setText(titleText);
         ArrayList<String> terms = subreddit.getTerms();
 
         seekBar.setProgress(subreddit.getMaxPosts());
@@ -89,7 +93,7 @@ public class EditSubredditFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 String inputText = s.toString();
 
-                if (!inputText.isEmpty() && terms.size() < 7) {
+                if (!inputText.isEmpty() && inputText.length() >= 3 && terms.size() < 7) {
                     terms.add(inputText);
                     adapter.notifyItemInserted(terms.size() - 1);
                     addTerm.getText().clear();

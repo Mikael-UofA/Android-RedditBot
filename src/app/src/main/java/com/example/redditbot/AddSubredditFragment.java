@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,9 +24,9 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class AddSubredditFragment extends Fragment {
-    EditText subredditName;
-    EditText subredditMaxPosts;
-    EditText subredditTerm;
+    TextInputEditText subredditName;
+    TextInputEditText subredditMaxPosts;
+    TextInputEditText subredditTerm;
     ImageButton addTerm;
     TextView termsText;
     ArrayList<String> terms = new ArrayList<>();
@@ -54,8 +57,9 @@ public class AddSubredditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (terms.size() < 7 && validTerm()) {
-                    terms.add(subredditMaxPosts.getText().toString().trim());
+                    terms.add(subredditTerm.getText().toString().trim());
                     termsText.setText(displayTerm());
+                    subredditTerm.setText("");
                 }
             }
         });
@@ -64,7 +68,7 @@ public class AddSubredditFragment extends Fragment {
             public void onClick(View v) {
                 if (validCondition()) {
                     String name = subredditName.getText().toString();
-                    Integer maxPosts = Integer.getInteger(subredditMaxPosts.getText().toString());
+                    int maxPosts = Integer.parseInt(subredditMaxPosts.getText().toString());
                     Subreddit newSubreddit = new Subreddit(CurrentUser.getInstance().getUsername(),
                             name, maxPosts, terms);
                     firebaseDB.userSubredditAlreadyExists(name, new FirebaseDB.GetBooleanCallBack() {
@@ -87,15 +91,14 @@ public class AddSubredditFragment extends Fragment {
     }
 
     public Boolean validTerm() {
-        return !terms.contains(subredditMaxPosts.getText().toString().trim());
+        return !terms.contains(subredditTerm.getText().toString().trim());
     }
     public Boolean validCondition() {
-        if (subredditName == null || subredditMaxPosts == null || terms.isEmpty()) {
+        if (subredditName == null || subredditMaxPosts == null || terms.isEmpty() || subredditName.getText().toString().length() < 3) {
             return false;
         }
-
-        Integer maxPosts = Integer.getInteger(subredditMaxPosts.getText().toString().trim());
-        if (maxPosts == null || maxPosts > 20 || maxPosts < 1) {
+        int maxPosts = Integer.parseInt(subredditMaxPosts.getText().toString());
+        if (maxPosts > 20 || maxPosts < 1) {
             return false;
         }
         return terms.size() <= 7;
