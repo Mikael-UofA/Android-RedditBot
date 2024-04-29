@@ -33,7 +33,7 @@
     <SeekBar
         android:id="@+id/seekBar"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:max="20"
         android:min="1"
@@ -94,8 +94,7 @@
             android:layout_height="wrap_content"
             android:background="@color/cancel_button_red"
             android:text="@string/cancel_button_text"
-            android:textStyle="bold"
-            tools:visibility="gone" />
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/done_button"
@@ -105,8 +104,7 @@
             android:layout_marginStart="16sp"
             android:background="@color/done_button_green"
             android:text="@string/done_button_text"
-            android:textStyle="bold"
-            tools:visibility="gone" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     <string name="add_subreddit">Add Subreddit</string>
     <string name="add_new_subreddit">Add New Subreddit</string>
     <string name="name">Name</string>
-    <string name="max_of_posts">Max. of Posts</string>
+    <string name="max_of_posts">Max. Posts: </string>
     <string name="terms">Terms: </string>
     <string name="add_name_edit">Do not include r/</string>
     <string name="add_max_posts_edit">Top X posts agent will look through</string>

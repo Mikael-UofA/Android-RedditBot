@@ -48,6 +48,7 @@ public class EditSubredditFragment extends Fragment {
 
         FirebaseDB firebaseDB = FirebaseDB.getInstance();
         TextView title = view.findViewById(R.id.add_subreddit_textview);
+        TextView maxValue = view.findViewById(R.id.max_posts);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         EditText addTerm = view.findViewById(R.id.edit_term);
@@ -61,10 +62,13 @@ public class EditSubredditFragment extends Fragment {
         ArrayList<String> terms = subreddit.getTerms();
 
         seekBar.setProgress(subreddit.getMaxPosts());
+        String maxValueString = "Max. Posts: " + seekBar.getProgress();
+        maxValue.setText(maxValueString);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                changeState(confirmButton, cancelButton);
+                String maxValueString = "Max. Posts: " + seekBar.getProgress();
+                maxValue.setText(maxValueString);
             }
 
             @Override
@@ -120,8 +124,4 @@ public class EditSubredditFragment extends Fragment {
         return view;
     }
 
-    public void changeState(Button confirm, Button cancel) {
-        confirm.setVisibility(View.VISIBLE);
-        cancel.setVisibility(View.VISIBLE);
-    }
 }
