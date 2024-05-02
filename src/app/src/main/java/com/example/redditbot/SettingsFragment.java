@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +25,7 @@ public class SettingsFragment extends Fragment {
     TextView viewAuthor;
     ImageButton deleteButton;
     ImageView avatar;
-    UserAgent agent;
+    AgentInfo agent;
     public SettingsFragment() {
     }
     @Override

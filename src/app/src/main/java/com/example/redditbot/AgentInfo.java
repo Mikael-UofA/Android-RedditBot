@@ -1,6 +1,6 @@
 package com.example.redditbot;
 
-public class UserAgent {
+public class AgentInfo {
     private String agentUsername;
     private String agentPass;
     private String agentClientId;
@@ -9,9 +9,9 @@ public class UserAgent {
     private String agentAppName;
     private String agentAuthorName;
 
-    public UserAgent(){
+    public AgentInfo(){
     }
-    public UserAgent(String agentUsername, String agentPass, String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
+    public AgentInfo(String agentUsername, String agentPass, String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
         this.agentUsername = agentUsername;
         this.agentPass = agentPass;
         this.agentClientId = agentClientId;

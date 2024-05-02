@@ -10,34 +10,17 @@ public class CurrentUser {
     private String username;
     private String deviceId;
     private String agentId;
-    private UserAgent agent;
+    private AgentInfo agent;
     private SubredditList subreddits;
+    private Reddit4J client;
+    private Boolean connected;
 
     private CurrentUser() {
+        this.connected = false;
     }
 
     public static CurrentUser getInstance() {
         return instance;
-    }
-
-    public void Initialization() {
-        firebaseDBInstance.loginUser();
-    }
-
-    public void beginAuthentication() {
-        if (agent == null) {
-            throw new NullPointerException("User does not have a agent");
-        }
-        try {
-
-            Reddit4J client = Reddit4J.rateLimited().setUsername(agent.getAgentUsername())
-                    .setPassword(agent.getAgentPass())
-                    .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
-                    .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
-            client.connect();
-        } catch (Exception e) {
-            throw new RuntimeException("Something went wrong when connecting client: " + e);
-        }
     }
 
     public String getUsername() {
@@ -64,11 +47,11 @@ public class CurrentUser {
         this.agentId = agentId;
     }
 
-    public UserAgent getAgent() {
+    public AgentInfo getAgent() {
         return agent;
     }
 
-    public void setAgent(UserAgent agent) {
+    public void setAgent(AgentInfo agent) {
         this.agent = agent;
     }
 
@@ -78,5 +61,13 @@ public class CurrentUser {
 
     public void setSubreddits(SubredditList subreddits) {
         this.subreddits = subreddits;
+    }
+
+    public Boolean getConnected() {
+        return connected;
+    }
+
+    public void setConnected(Boolean connected) {
+        this.connected = connected;
     }
 }

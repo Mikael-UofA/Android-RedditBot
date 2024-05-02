@@ -17,7 +17,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class FirebaseDB {
 
@@ -110,7 +109,7 @@ public class FirebaseDB {
                     }
                 });
     }
-    public void createAgent(UserAgent agent) {
+    public void createAgent(AgentInfo agent) {
         agentCollection
                 .add(agent)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -137,7 +136,7 @@ public class FirebaseDB {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            UserAgent agent = documentSnapshot.toObject(UserAgent.class);
+                            AgentInfo agent = documentSnapshot.toObject(AgentInfo.class);
                             user.setAgent(agent);
                         }
                     }

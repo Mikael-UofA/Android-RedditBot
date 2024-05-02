@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import java.util.Objects;
@@ -42,7 +40,7 @@ public class AddAgentFragment extends DialogFragment {
         CurrentUser user = CurrentUser.getInstance();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        UserAgent agent = new UserAgent();
+        AgentInfo agent = new AgentInfo();
         FirebaseDB db = FirebaseDB.getInstance();
 
         if (Objects.equals(tag, "Add")) {
