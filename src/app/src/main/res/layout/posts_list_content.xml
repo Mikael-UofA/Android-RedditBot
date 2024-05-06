@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:layout_marginBottom="25dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="18dp"
+    app:cardBackgroundColor="@color/post_card">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/lin_layout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/reddit_logo"
+                android:layout_marginEnd="10dp"
+                android:paddingTop="5dp"/>
+
+            <LinearLayout
+                android:id="@+id/lin_layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/post_subreddit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subreddit"
+                    android:ellipsize="end"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"/>
+                <LinearLayout
+                    android:id="@+id/rel_layout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/post_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="6dp"
+                        android:textColor="@color/nice_grey"/>
+                    <TextView
+                        android:id="@+id/post_dot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dot"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="6dp"
+                        android:textColor="@color/nice_grey"/>
+                    <TextView
+                        android:id="@+id/post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:textColor="@color/nice_grey" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_layout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_below="@id/lin_layout1"/>
+
+        <TextView
+            android:id="@+id/post_self_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/so_there_is_this_idea_where_you_can_just_do"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_below="@id/post_title"/>
+
+        <LinearLayout
+            android:id="@+id/rel_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/post_self_text">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post_karma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_177"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/post_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/_91_comments"/>
+        </LinearLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

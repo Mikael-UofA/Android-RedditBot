@@ -78,10 +78,6 @@ public class Client {
         }
         return message.toString();
     }
-    public void sendMessage(AgentInfo agent, String message) throws IOException, InterruptedException {
-        return;
-    }
-
     public Reddit4J getClient() {
         return client;
     }

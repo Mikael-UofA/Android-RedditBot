@@ -37,5 +37,15 @@
     <string name="delete_add_button">delete/add button</string>
     <string name="sign_up">Sign Up</string>
     <string name="logo">Logo</string>
+    <string name="posts">Posts</string>
+    <string name="account">u/clanginator</string>
+    <string name="subreddit">r/subreddit</string>
+    <string name="time">6h</string>
+    <string name="title">A Study on a Post\'s Title</string>
+    <string name="_91_comments">91 Comments</string>
+    <string name="_20">20</string>
+    <string name="_177">177</string>
+    <string name="so_there_is_this_idea_where_you_can_just_do">So there is this idea where you can just do...</string>
+    <string name="dot">·</string>
 
 </resources>
