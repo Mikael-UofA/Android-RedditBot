@@ -45,8 +45,6 @@ public class EditSubredditFragment extends Fragment {
         } else if (getArguments().get("subreddit") == null) {
             throw new MissingFormatArgumentException("Failed to pass subreddit in the bundle");
         }
-
-        FirebaseDB firebaseDB = FirebaseDB.getInstance();
         TextView title = view.findViewById(R.id.add_subreddit_textview);
         TextView maxValue = view.findViewById(R.id.max_posts);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
@@ -111,7 +109,6 @@ public class EditSubredditFragment extends Fragment {
             public void onClick(View v) {
                 subreddit.setMaxPosts(seekBar.getProgress());
                 subreddit.setTerms(adapter.getStringList());
-                firebaseDB.updateSubreddit(subreddit);
                 Navigation.findNavController(view).popBackStack();
             }
         });

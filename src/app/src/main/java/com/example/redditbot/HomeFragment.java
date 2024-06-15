@@ -18,8 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-
-    private final FirebaseDB firebaseDB = FirebaseDB.getInstance();
     private CurrentUser user;
     public HomeFragment() {
         // Required empty public constructor
@@ -43,20 +41,6 @@ public class HomeFragment extends Fragment {
         SubredditList subredditList = new SubredditList();
         SubredditAdapter adapter = new SubredditAdapter(getContext(), subredditList);
         subreddits.setAdapter(adapter);
-
-        firebaseDB.getSubreddits(new FirebaseDB.GetSubredditsCallBack() {
-            @Override
-            public void onResult(SubredditList list) {
-                if (list.count() != 0) {
-                    for (Subreddit subreddit : list.getSubreddits()) {
-                        subredditList.add(subreddit);
-                    }
-                    adapter.notifyDataSetChanged();
-                    user.setSubreddits(subredditList);
-
-                }
-            }
-        });
         subreddits.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

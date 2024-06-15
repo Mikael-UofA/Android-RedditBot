@@ -1,12 +1,13 @@
 package com.example.redditbot;
 
+import java.io.Serializable;
+
 import masecla.reddit4j.client.Reddit4J;
 import masecla.reddit4j.client.UserAgentBuilder;
 
-public class CurrentUser {
+public class CurrentUser implements Serializable {
 
     private static final CurrentUser instance = new CurrentUser();
-    private final FirebaseDB firebaseDBInstance = FirebaseDB.getInstance();
     private String username;
     private String deviceId;
     private String agentId;

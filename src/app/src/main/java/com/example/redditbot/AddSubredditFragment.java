@@ -44,7 +44,6 @@ public class AddSubredditFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_subreddit, container, false);
 
-        FirebaseDB firebaseDB = FirebaseDB.getInstance();
         subredditName = view.findViewById(R.id.name_edit);
         subredditMaxPosts = view.findViewById(R.id.max_posts_edit);
         subredditTerm = view.findViewById(R.id.terms_edit);
@@ -63,30 +62,6 @@ public class AddSubredditFragment extends Fragment {
                 }
             }
         });
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validCondition()) {
-                    String name = subredditName.getText().toString();
-                    int maxPosts = Integer.parseInt(subredditMaxPosts.getText().toString());
-                    Subreddit newSubreddit = new Subreddit(CurrentUser.getInstance().getUsername(),
-                            name, maxPosts, terms);
-                    firebaseDB.userSubredditAlreadyExists(name, new FirebaseDB.GetBooleanCallBack() {
-                        @Override
-                        public void onResult(Boolean bool) {
-                            if (!bool) {
-                                firebaseDB.addSubreddit(newSubreddit);
-                                Navigation.findNavController(view).popBackStack();
-                            } else {
-                                // Didn't work
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
-
         return view;
     }
 

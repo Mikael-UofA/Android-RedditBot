@@ -1,6 +1,8 @@
 package com.example.redditbot;
 
-public class AgentInfo {
+import java.io.Serializable;
+
+public class AgentInfo implements Serializable {
     private String agentUsername;
     private String agentPass;
     private String agentClientId;

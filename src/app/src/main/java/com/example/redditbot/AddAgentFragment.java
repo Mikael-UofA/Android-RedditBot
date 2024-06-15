@@ -41,7 +41,6 @@ public class AddAgentFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         AgentInfo agent = new AgentInfo();
-        FirebaseDB db = FirebaseDB.getInstance();
 
         if (Objects.equals(tag, "Add")) {
             return builder.setView(view)
@@ -56,7 +55,6 @@ public class AddAgentFragment extends DialogFragment {
                         agent.setAgentAppName(editAppName.getText().toString());
                         agent.setAgentAuthorName(user.getUsername());
                         user.setAgent(agent);
-                        db.createAgent(user.getAgent());
                         Fragment targetFragment = getTargetFragment();
                         if (targetFragment instanceof SettingsFragment) {
                             ((SettingsFragment) targetFragment).setViews();
@@ -76,7 +74,6 @@ public class AddAgentFragment extends DialogFragment {
                         .setNegativeButton("Cancel", null)
                         .setPositiveButton("Confirm", (dialog, which) -> {
                             user.setAgent(null);
-                            db.deleteAgent(user.getAgentId());
                             Fragment targetFragment = getTargetFragment();
                             if (targetFragment instanceof SettingsFragment) {
                                 ((SettingsFragment) targetFragment).setViews();
