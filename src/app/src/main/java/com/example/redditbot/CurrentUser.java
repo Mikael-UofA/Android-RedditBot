@@ -1,5 +1,11 @@
 package com.example.redditbot;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import masecla.reddit4j.client.Reddit4J;
@@ -43,5 +49,22 @@ public class CurrentUser implements Serializable {
 
     public void setConnected(Boolean connected) {
         this.connected = connected;
+    }
+
+    public void saveAgentInfo(Context context) {
+        try (FileOutputStream fos = context.openFileOutput("agent-info.ser", Context.MODE_PRIVATE);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(this.agent);
+        } catch (IOException e) {
+            Log.w("FileSaving", "Error: " + e);
+        }
+    }
+    public void saveSubreddits(Context context) {
+        try (FileOutputStream fos = context.openFileOutput("subreddits.ser", Context.MODE_PRIVATE);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(this.subreddits);
+        } catch (IOException e) {
+            Log.w("FileSaving", "Error: " + e);
+        }
     }
 }

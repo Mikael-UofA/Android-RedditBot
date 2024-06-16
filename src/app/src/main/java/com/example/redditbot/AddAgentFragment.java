@@ -56,6 +56,7 @@ public class AddAgentFragment extends DialogFragment {
                         agent.setAgentAppName(editAppName.getText().toString());
                         agent.setAgentAuthorName(authorName.getText().toString());
                         user.setAgent(agent);
+                        user.saveAgentInfo(requireContext());
                         Fragment targetFragment = getTargetFragment();
                         if (targetFragment instanceof SettingsFragment) {
                             ((SettingsFragment) targetFragment).setViews();
@@ -76,6 +77,7 @@ public class AddAgentFragment extends DialogFragment {
                         .setNegativeButton("Cancel", null)
                         .setPositiveButton("Confirm", (dialog, which) -> {
                             user.setAgent(null);
+                            user.saveAgentInfo(requireContext());
                             Fragment targetFragment = getTargetFragment();
                             if (targetFragment instanceof SettingsFragment) {
                                 ((SettingsFragment) targetFragment).setViews();

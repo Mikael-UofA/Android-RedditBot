@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment {
                 Subreddit subreddit = (Subreddit) parent.getItemAtPosition(position);
                 Bundle args = new Bundle();
                 args.putSerializable("subreddit", subreddit);
+                args.putSerializable("position", position);
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_editSubredditFragment, args);
             }
         });

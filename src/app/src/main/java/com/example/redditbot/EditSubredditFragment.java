@@ -53,7 +53,9 @@ public class EditSubredditFragment extends Fragment {
         Button confirmButton = view.findViewById(R.id.done_button);
         Button cancelButton = view.findViewById(R.id.cancel_button);
 
+        CurrentUser user = CurrentUser.getInstance();
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");
+        Integer position = (Integer) getArguments().get("position");
         assert subreddit != null;
         String titleText = "r/ " + subreddit.getName();
         title.setText(titleText);
@@ -107,8 +109,10 @@ public class EditSubredditFragment extends Fragment {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user.getSubreddits().delete(subreddit);
                 subreddit.setMaxPosts(seekBar.getProgress());
                 subreddit.setTerms(adapter.getStringList());
+                user.getSubreddits().add(subreddit);
                 Navigation.findNavController(view).popBackStack();
             }
         });

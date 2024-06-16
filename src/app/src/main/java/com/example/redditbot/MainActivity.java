@@ -63,13 +63,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        saveSubreddits(user.getSubreddits(), getApplicationContext());
-        saveAgentInfo(user.getAgent(), getApplicationContext());
-        super.onDestroy();
-    }
-
     /**
      * Use this method to display the fragment that is passed
      * as an argument
@@ -82,14 +75,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-    public void saveAgentInfo(AgentInfo agentInfo, Context context) {
-        try (FileOutputStream fos = context.openFileOutput("agent-info.ser", Context.MODE_PRIVATE);
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(agentInfo);
-        } catch (IOException e) {
-            Log.w("FileSaving", "Error: " + e);
-        }
-    }
     public AgentInfo loadAgentInfo(Context context) {
         try (FileInputStream fis = context.openFileInput("agent-info.ser");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -98,15 +83,6 @@ public class MainActivity extends AppCompatActivity {
             Log.w("FileLoading", "Error: " + e);;
         }
         return null;
-    }
-
-    public void saveSubreddits(SubredditList list, Context context) {
-        try (FileOutputStream fos = context.openFileOutput("subreddits.ser", Context.MODE_PRIVATE);
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(list);
-        } catch (IOException e) {
-            Log.w("FileSaving", "Error: " + e);
-        }
     }
     public SubredditList loadSubreddits(Context context) {
         try (FileInputStream fis = context.openFileInput("subreddits.ser");
