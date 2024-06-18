@@ -55,7 +55,7 @@ public class EditSubredditFragment extends Fragment {
 
         CurrentUser user = CurrentUser.getInstance();
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");
-        Integer position = (Integer) getArguments().get("position");
+        int position = (int) getArguments().get("position");
         assert subreddit != null;
         String titleText = "r/ " + subreddit.getName();
         title.setText(titleText);
@@ -84,7 +84,7 @@ public class EditSubredditFragment extends Fragment {
 
         StringAdapter adapter = new StringAdapter(terms);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         addTerm.addTextChangedListener(new TextWatcher() {
             @Override
@@ -109,10 +109,10 @@ public class EditSubredditFragment extends Fragment {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.getSubreddits().delete(subreddit);
                 subreddit.setMaxPosts(seekBar.getProgress());
                 subreddit.setTerms(adapter.getStringList());
-                user.getSubreddits().add(subreddit);
+                user.editSubreddit(subreddit, position);
+                user.saveSubreddits(requireContext());
                 Navigation.findNavController(view).popBackStack();
             }
         });

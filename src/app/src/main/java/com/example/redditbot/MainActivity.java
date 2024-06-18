@@ -91,6 +91,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException | ClassNotFoundException e) {
             Log.w("FileLoading", "Error: " + e);;
         }
-        return null;
+        return new SubredditList();
     }
 }

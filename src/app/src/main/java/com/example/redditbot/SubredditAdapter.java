@@ -28,12 +28,12 @@ public class SubredditAdapter extends ArrayAdapter<Subreddit> {
         View view = convertView;
 
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.subreddits_content, parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_string, parent,false);
         }
 
         Subreddit subreddit = subreddits.get(position);
 
-        TextView subredditName = view.findViewById(R.id.subreddit_text);
+        TextView subredditName = view.findViewById(R.id.textView);
 
         String displayName = "r/" + subreddit.getName();
         subredditName.setText(displayName);

@@ -1,9 +1,10 @@
 package com.example.redditbot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class SubredditList {
+public class SubredditList implements Serializable {
     private final ArrayList<Subreddit> subreddits = new ArrayList<>();
 
     public SubredditList() {
@@ -41,17 +42,22 @@ public class SubredditList {
      * Otherwise will throw an error if the item to be deleted doesn't exist
      * @param subreddit The subreddit we want to remove from the list
      */
-    public void delete(Subreddit subreddit) {
-        boolean inList = has(subreddit);
-        if(!inList){
-            throw new NoSuchElementException();
-        }
-        subreddits.remove(subreddit);
+    public void replace(Subreddit subreddit, int position) {
+        subreddits.remove(position);
+        subreddits.add(position, subreddit);
     }
     /**
      * This returns how many subreddits are in the list
      */
     public int count() {
         return subreddits.size();
+    }
+
+    public void remove(int pos) {
+        subreddits.remove(pos);
+    }
+
+    public Subreddit getSubreddit(int pos) {
+        return subreddits.get(pos);
     }
 }

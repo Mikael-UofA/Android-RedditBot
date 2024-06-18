@@ -21,6 +21,7 @@ public class CurrentUser implements Serializable {
 
     private CurrentUser() {
         this.connected = false;
+        this.subreddits = new SubredditList();
     }
 
     public static CurrentUser getInstance() {
@@ -49,6 +50,13 @@ public class CurrentUser implements Serializable {
 
     public void setConnected(Boolean connected) {
         this.connected = connected;
+    }
+
+    public void addSubreddit(Subreddit subreddit) {
+        this.subreddits.add(subreddit);
+    }
+    public void editSubreddit(Subreddit subreddit, int position) {
+        this.subreddits.replace(subreddit, position);
     }
 
     public void saveAgentInfo(Context context) {

@@ -51,14 +51,26 @@ public class AddSubredditFragment extends Fragment {
         termsText = view.findViewById(R.id.terms_displayed);
 
         Button confirmButton = view.findViewById(R.id.complete_button);
-
+        CurrentUser user = CurrentUser.getInstance();
         addTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (terms.size() < 7 && validTerm()) {
-                    terms.add(subredditTerm.getText().toString().trim());
+                    terms.add(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
                     termsText.setText(displayTerm());
                     subredditTerm.setText("");
+                }
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validCondition()) {
+                    int maxPosts = Integer.parseInt(Objects.requireNonNull(subredditMaxPosts.getText()).toString());
+                    Subreddit subreddit = new Subreddit(Objects.requireNonNull(subredditName.getText()).toString().trim(), maxPosts, terms);
+                    user.addSubreddit(subreddit);
+                    user.saveSubreddits(requireContext());
+                    Navigation.findNavController(view).popBackStack();
                 }
             }
         });
@@ -66,13 +78,13 @@ public class AddSubredditFragment extends Fragment {
     }
 
     public Boolean validTerm() {
-        return !terms.contains(subredditTerm.getText().toString().trim());
+        return !terms.contains(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
     }
     public Boolean validCondition() {
-        if (subredditName == null || subredditMaxPosts == null || terms.isEmpty() || subredditName.getText().toString().length() < 3) {
+        if (subredditName == null || subredditMaxPosts == null || terms.isEmpty() || Objects.requireNonNull(subredditName.getText()).toString().length() < 3) {
             return false;
         }
-        int maxPosts = Integer.parseInt(subredditMaxPosts.getText().toString());
+        int maxPosts = Integer.parseInt(Objects.requireNonNull(subredditMaxPosts.getText()).toString());
         if (maxPosts > 20 || maxPosts < 1) {
             return false;
         }
