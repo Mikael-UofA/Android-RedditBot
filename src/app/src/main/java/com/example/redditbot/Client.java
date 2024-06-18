@@ -61,23 +61,6 @@ public class Client {
         }
         return returnedPosts;
     }
-
-    public void lookIntoSubreddit(AgentInfo agent, Subreddit subreddit) {
-        ArrayList<RedditPost> posts = getTopPosts(subreddit);
-        String message = composeMessage(posts);
-
-    }
-    public String composeMessage(ArrayList<RedditPost> posts) {
-        StringBuilder message = new StringBuilder();
-        if (posts.isEmpty()) {
-            message = new StringBuilder("No new post with terms found");
-        } else {
-            for (RedditPost post : posts) {
-                message.append("Title: ").append(post.getTitle()).append("\n\nText: ").append(post.getSelftext()).append("\nURL: ").append(post.getUrl()).append("\n\n");
-            }
-        }
-        return message.toString();
-    }
     public Reddit4J getClient() {
         return client;
     }

@@ -1,14 +1,12 @@
 package com.example.redditbot;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -18,74 +16,63 @@ import java.util.ArrayList;
 
 import masecla.reddit4j.objects.RedditPost;
 
-public class PostAdapter extends ArrayAdapter<RedditPost> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
+    private final PostList postList;
 
-    private final ArrayList<RedditPost> posts;
-    private final Context context;
-
-    TextView subredditName;
-    TextView userName;
-    TextView postTime;
-    TextView title;
-    TextView selfText;
-
-    MaterialButton karmaCount;
-    MaterialButton commentsCount;
-
-    public PostAdapter(Context context, ArrayList<RedditPost> posts) {
-        super(context, 0, posts);
-        this.posts = posts;
-        this.context = context;
+    public PostAdapter(PostList postList) {
+        this.postList = postList;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.posts_list_content, parent, false);
+        return new PostAdapter.ViewHolder(view);
+    }
+    
+    @Override
+    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+        RedditPost post = postList.getRedditPost(holder.getAdapterPosition());
+        ArrayList<String> list = getStrings(post);
+        ArrayList<String> list2 = getNumbers(post);
 
-        View view = convertView;
+        holder.subredditName.setText(list.get(0));
+        holder.userName.setText(list.get(1));
+        holder.title.setText(list.get(2));
+        holder.selfText.setText(list.get(3));
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.posts_list_content, parent,false);
-        }
-
-        RedditPost post = posts.get(position);
-
-        subredditName = view.findViewById(R.id.post_subreddit);
-        userName = view.findViewById(R.id.post_author);
-        postTime = view.findViewById(R.id.post_time);
-        title = view.findViewById(R.id.post_title);
-        selfText = view.findViewById(R.id.post_self_text);
-
-        karmaCount = view.findViewById(R.id.post_karma);
-        commentsCount = view.findViewById(R.id.post_comments);
-
+        holder.commentsCount.setText(list2.get(0));
+        holder.karmaCount.setText(list2.get(1));
+        holder.postTime.setText(getTime(post));
+        
+    }
+    
+    @Override
+    public int getItemCount() {
+        return postList.count();
+    }
+    public ArrayList<String> getStrings(RedditPost post) {
         String subreddit = "r/" + post.getSubreddit();
         String user = "u/" + post.getAuthor();
-
-        subredditName.setText(subreddit);
-        userName.setText(user);
-
-        return view;
-
-    }
-
-    public void cutStrings(RedditPost post) {
         String title = post.getTitle();
         if (title.length() > 30) {
             title = title.substring(0, 30) + "...";
         }
-
         String selfText = post.getSelftext();
         if (selfText.length() > 35) {
             selfText = selfText.substring(0, 35) + "...";
         }
 
-        this.title.setText(title);
-        this.selfText.setText(selfText);
+        ArrayList<String> list = new ArrayList<>();
+        list.add(subreddit);
+        list.add(user);
+        list.add(title);
+        list.add(selfText);
+
+        return list;
 
     }
-
-    public void getNumbers(RedditPost post) {
+    public ArrayList<String> getNumbers(RedditPost post) {
         int comments = post.getNumComments();
         int karma = post.getScore();
 
@@ -98,15 +85,17 @@ public class PostAdapter extends ArrayAdapter<RedditPost> {
         String karmaText = String.valueOf(karma);
         if (karma >= 1000) {
             karma = karma / 1000;
-            karmaText = String.valueOf(karma);
+            karmaText = String.valueOf(karma) + "k";
 
         }
 
-        commentsCount.setText(commentText);
-        karmaCount.setText(karmaText);
-    }
+        ArrayList<String> list = new ArrayList<>();
+        list.add(commentText);
+        list.add(karmaText);
 
-    public void getTime(RedditPost post) {
+        return list;
+    }
+    public String getTime(RedditPost post) {
         long created = post.getCreated();
 
         Instant now = Instant.now();
@@ -128,6 +117,30 @@ public class PostAdapter extends ArrayAdapter<RedditPost> {
             createdText = days + "d";
         }
 
-        postTime.setText(createdText);
+        return createdText;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView subredditName;
+        TextView userName;
+        TextView postTime;
+        TextView title;
+        TextView selfText;
+
+        MaterialButton karmaCount;
+        MaterialButton commentsCount;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            subredditName = itemView.findViewById(R.id.post_subreddit);
+            userName = itemView.findViewById(R.id.post_author);
+            postTime = itemView.findViewById(R.id.post_time);
+            title = itemView.findViewById(R.id.post_title);
+            selfText = itemView.findViewById(R.id.post_self_text);
+
+            karmaCount = itemView.findViewById(R.id.post_karma);
+            commentsCount = itemView.findViewById(R.id.post_comments);
+        }
     }
 }
+

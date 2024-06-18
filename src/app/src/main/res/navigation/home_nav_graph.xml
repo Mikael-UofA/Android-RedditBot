@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_editSubredditFragment"
             app:destination="@id/editSubredditFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addSubredditFragment"
@@ -27,4 +30,9 @@
         android:name="com.example.redditbot.EditSubredditFragment"
         android:label="fragment_edit_subreddit"
         tools:layout="@layout/fragment_edit_subreddit" />
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.example.redditbot.PostsFragment"
+        android:label="fragment_posts"
+        tools:layout="@layout/fragment_posts" />
 </navigation>
