@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder>{
+public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.ViewHolder>{
     public interface onItemClickListener {
         void onItemClick(Bundle args);
     }
@@ -23,16 +23,16 @@ public class SubAdapter extends RecyclerView.Adapter<SubAdapter.ViewHolder>{
     private final SubredditList subList;
     private final onItemClickListener listener;
 
-    public SubAdapter(SubredditList subList, onItemClickListener listener) {
+    public SubredditAdapter(SubredditList subList, onItemClickListener listener) {
         this.subList = subList;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public SubAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SubredditAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_string, parent, false);
-        return new SubAdapter.ViewHolder(view);
+        return new SubredditAdapter.ViewHolder(view);
     }
 
     @SuppressLint("ClickableViewAccessibility")

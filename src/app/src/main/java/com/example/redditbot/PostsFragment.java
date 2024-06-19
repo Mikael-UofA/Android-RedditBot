@@ -1,5 +1,7 @@
 package com.example.redditbot;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import masecla.reddit4j.objects.RedditPost;
+
 /**
  * create an instance of this fragment.
  */
-public class PostsFragment extends Fragment {
+public class PostsFragment extends Fragment implements PostAdapter.onItemClickListener {
 
     public PostsFragment() {
         // Required empty public constructor
@@ -32,11 +36,18 @@ public class PostsFragment extends Fragment {
         assert getArguments() != null;
         PostList posts = (PostList) getArguments().get("RedditPosts");
         RecyclerView recyclerView = view.findViewById(R.id.posts_listview);
-        PostAdapter adapter = new PostAdapter(posts);
+        PostAdapter adapter = new PostAdapter(posts, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(RedditPost post) {
+        Uri uri = Uri.parse(post.getUrl());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }

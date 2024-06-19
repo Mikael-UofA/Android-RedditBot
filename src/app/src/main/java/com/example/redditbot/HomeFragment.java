@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -18,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements SubAdapter.onItemClickListener {
+public class HomeFragment extends Fragment implements SubredditAdapter.onItemClickListener {
     private View view;
     public HomeFragment() {
         // Required empty public constructor
@@ -39,7 +38,7 @@ public class HomeFragment extends Fragment implements SubAdapter.onItemClickList
         FloatingActionButton addButton = view.findViewById(R.id.add_button);
 
         CurrentUser user = CurrentUser.getInstance();
-        SubAdapter adapter = new SubAdapter(user.getSubreddits(), this);
+        SubredditAdapter adapter = new SubredditAdapter(user.getSubreddits(), this);
         subreddits.setAdapter(adapter);
         subreddits.setLayoutManager(new LinearLayoutManager(requireContext()));
         addButton.setOnClickListener(new View.OnClickListener() {

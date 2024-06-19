@@ -1,5 +1,7 @@
 package com.example.redditbot;
 
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -17,10 +20,15 @@ import java.util.ArrayList;
 import masecla.reddit4j.objects.RedditPost;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
+    public interface onItemClickListener {
+        void onItemClick(RedditPost post);
+    }
     private final PostList postList;
+    private final onItemClickListener listener;
 
-    public PostAdapter(PostList postList) {
+    public PostAdapter(PostList postList, onItemClickListener listener) {
         this.postList = postList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,6 +52,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.commentsCount.setText(list2.get(0));
         holder.karmaCount.setText(list2.get(1));
         holder.postTime.setText(getTime(post));
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(postList.getRedditPost(holder.getAdapterPosition()));
+            }
+        });
         
     }
     
@@ -121,6 +136,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        MaterialCardView card;
         TextView subredditName;
         TextView userName;
         TextView postTime;
@@ -132,6 +148,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            card = itemView.findViewById(R.id.mat_card);
             subredditName = itemView.findViewById(R.id.post_subreddit);
             userName = itemView.findViewById(R.id.post_author);
             postTime = itemView.findViewById(R.id.post_time);
