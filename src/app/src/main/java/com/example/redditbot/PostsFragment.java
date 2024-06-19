@@ -5,12 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import masecla.reddit4j.objects.RedditPost;
 
@@ -36,11 +39,18 @@ public class PostsFragment extends Fragment implements PostAdapter.onItemClickLi
         assert getArguments() != null;
         PostList posts = (PostList) getArguments().get("RedditPosts");
         RecyclerView recyclerView = view.findViewById(R.id.posts_listview);
+        FloatingActionButton backButton = view.findViewById(R.id.back_button);
+
         PostAdapter adapter = new PostAdapter(posts, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
         return view;
     }
 
