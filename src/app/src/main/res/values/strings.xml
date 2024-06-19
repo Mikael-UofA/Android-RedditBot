@@ -10,7 +10,6 @@
     <string name="add_max_posts_edit">Top X posts agent will look through</string>
     <string name="add_terms_edit">One at a time, case insensitive</string>
     <string name="add_term">Add Term</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edit_subreddit">Edit Subreddit</string>
     <string name="done_button_text">Done</string>
@@ -45,9 +44,10 @@
     <string name="_91_comments">91 Comments</string>
     <string name="_20">20</string>
     <string name="_177">177</string>
-    <string name="so_there_is_this_idea_where_you_can_just_do">So there is this idea where you can just do...</string>
+    <string name="so_there_is_this_idea_where_you_can_just_do">So there is this idea where you can just do…</string>
     <string name="dot">·</string>
     <string name="author_name">Author Name</string>
     <string name="back_button">Back Button</string>
+    <string name="authentication">Authentication</string>
 
 </resources>

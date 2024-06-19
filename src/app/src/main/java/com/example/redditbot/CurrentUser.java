@@ -16,12 +16,13 @@ public class CurrentUser implements Serializable {
     private static final CurrentUser instance = new CurrentUser();
     private AgentInfo agent;
     private SubredditList subreddits;
-    private Reddit4J client;
+    private Client client;
     private Boolean connected;
 
     private CurrentUser() {
         this.connected = false;
         this.subreddits = new SubredditList();
+        this.client = new Client();
     }
 
     public static CurrentUser getInstance() {
@@ -57,6 +58,9 @@ public class CurrentUser implements Serializable {
     }
     public void editSubreddit(Subreddit subreddit, int position) {
         this.subreddits.replace(subreddit, position);
+    }
+    public Boolean authClient() {
+        return client.beginAuthentication(agent);
     }
 
     public void saveAgentInfo(Context context) {

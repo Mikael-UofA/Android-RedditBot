@@ -13,7 +13,6 @@ public class AgentInfo implements Serializable {
     private String agentPass;
     private String agentClientId;
     private String agentClientSecret;
-    private String agentReceiver;
     private String agentAppName;
     private String agentAuthorName;
 
@@ -44,10 +43,6 @@ public class AgentInfo implements Serializable {
         return agentClientSecret;
     }
 
-    public String getAgentReceiver() {
-        return agentReceiver;
-    }
-
     public String getAgentAppName() {
         return agentAppName;
     }
@@ -70,10 +65,6 @@ public class AgentInfo implements Serializable {
 
     public void setAgentClientSecret(String agentClientSecret) {
         this.agentClientSecret = agentClientSecret;
-    }
-
-    public void setAgentReceiver(String agentReceiver) {
-        this.agentReceiver = agentReceiver;
     }
 
     public void setAgentAppName(String agentAppName) {

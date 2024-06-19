@@ -33,7 +33,6 @@ public class AddAgentFragment extends DialogFragment {
         EditText editAgentPass = view.findViewById(R.id.edit_text_password);
         EditText editClientId = view.findViewById(R.id.edit_text_client_id);
         EditText editClientSecret = view.findViewById(R.id.edit_text_secret);
-        EditText editReceiver = view.findViewById(R.id.edit_text_receiver);
         EditText editAppName = view.findViewById(R.id.edit_text_app_name);
         EditText authorName = view.findViewById(R.id.edit_text_author_name);
 
@@ -52,7 +51,6 @@ public class AddAgentFragment extends DialogFragment {
                         agent.setAgentPass(editAgentPass.getText().toString());
                         agent.setAgentClientId(editClientId.getText().toString());
                         agent.setAgentClientSecret(editClientSecret.getText().toString());
-                        agent.setAgentReceiver(editReceiver.getText().toString());
                         agent.setAgentAppName(editAppName.getText().toString());
                         agent.setAgentAuthorName(authorName.getText().toString());
                         user.setAgent(agent);
@@ -68,7 +66,6 @@ public class AddAgentFragment extends DialogFragment {
             editAgentPass.setVisibility(View.GONE);
             editClientId.setVisibility(View.GONE);
             editClientSecret.setVisibility(View.GONE);
-            editReceiver.setVisibility(View.GONE);
             editAppName.setVisibility(View.GONE);
             authorName.setVisibility(View.GONE);
             if (Objects.equals(tag, "Delete")) {

@@ -22,11 +22,10 @@ public class Client {
 
 
     public Boolean beginAuthentication(AgentInfo agent) {
-        if (agent == null) {
-            throw new NullPointerException("User does not have a agent");
-        }
         try {
-
+            if (agent == null) {
+                throw new NullPointerException("User does not have a agent");
+            }
             client = Reddit4J.rateLimited().setUsername(agent.getAgentUsername())
                     .setPassword(agent.getAgentPass())
                     .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())

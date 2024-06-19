@@ -7,6 +7,7 @@
     tools:context=".SettingsFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_marginTop="24dp"
@@ -78,8 +79,7 @@
                 android:layout_above="@id/agent_author"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/agent_receiver"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="16sp" />
 
@@ -115,5 +115,15 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/authentication"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
