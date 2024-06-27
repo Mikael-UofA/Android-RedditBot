@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.DataHolders;
 
 import java.io.Serializable;
 import java.util.ArrayList;

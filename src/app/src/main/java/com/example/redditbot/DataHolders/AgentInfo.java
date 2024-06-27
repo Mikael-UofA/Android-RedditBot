@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.DataHolders;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,8 +9,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class AgentInfo implements Serializable {
-    private String agentUsername;
-    private String agentPass;
     private String agentClientId;
     private String agentClientSecret;
     private String agentAppName;
@@ -18,21 +16,11 @@ public class AgentInfo implements Serializable {
 
     public AgentInfo(){
     }
-    public AgentInfo(String agentUsername, String agentPass, String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
-        this.agentUsername = agentUsername;
-        this.agentPass = agentPass;
+    public AgentInfo(String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
         this.agentClientId = agentClientId;
         this.agentClientSecret = agentClientSecret;
         this.agentAppName = agentAppName;
         this.agentAuthorName = agentAuthorName;
-    }
-
-    public String getAgentUsername() {
-        return agentUsername;
-    }
-
-    public String getAgentPass() {
-        return agentPass;
     }
 
     public String getAgentClientId() {
@@ -49,14 +37,6 @@ public class AgentInfo implements Serializable {
 
     public String getAgentAuthorName() {
         return agentAuthorName;
-    }
-
-    public void setAgentUsername(String agentUsername) {
-        this.agentUsername = agentUsername;
-    }
-
-    public void setAgentPass(String agentPass) {
-        this.agentPass = agentPass;
     }
 
     public void setAgentClientId(String agentClientId) {

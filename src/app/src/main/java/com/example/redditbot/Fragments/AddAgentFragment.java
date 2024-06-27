@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.redditbot.DataHolders.AgentInfo;
+import com.example.redditbot.CurrentUser;
+import com.example.redditbot.R;
 
 import java.util.Objects;
 
@@ -29,8 +33,6 @@ public class AddAgentFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = getLayoutInflater().inflate(R.layout.fragment_add_agent, null);
-        EditText editAgentName = view.findViewById(R.id.edit_text_username);
-        EditText editAgentPass = view.findViewById(R.id.edit_text_password);
         EditText editClientId = view.findViewById(R.id.edit_text_client_id);
         EditText editClientSecret = view.findViewById(R.id.edit_text_secret);
         EditText editAppName = view.findViewById(R.id.edit_text_app_name);
@@ -47,13 +49,12 @@ public class AddAgentFragment extends DialogFragment {
                     .setTitle("Add an Agent")
                     .setNegativeButton("Cancel", null)
                     .setPositiveButton("Add", (dialog, which) -> {
-                        agent.setAgentUsername(editAgentName.getText().toString());
-                        agent.setAgentPass(editAgentPass.getText().toString());
                         agent.setAgentClientId(editClientId.getText().toString());
                         agent.setAgentClientSecret(editClientSecret.getText().toString());
                         agent.setAgentAppName(editAppName.getText().toString());
                         agent.setAgentAuthorName(authorName.getText().toString());
                         user.setAgent(agent);
+                        user.setClientInfo();
                         user.saveAgentInfo(requireContext());
                         Fragment targetFragment = getTargetFragment();
                         if (targetFragment instanceof SettingsFragment) {
@@ -62,8 +63,6 @@ public class AddAgentFragment extends DialogFragment {
                     })
                     .create();
         } else {
-            editAgentName.setVisibility(View.GONE);
-            editAgentPass.setVisibility(View.GONE);
             editClientId.setVisibility(View.GONE);
             editClientSecret.setVisibility(View.GONE);
             editAppName.setVisibility(View.GONE);

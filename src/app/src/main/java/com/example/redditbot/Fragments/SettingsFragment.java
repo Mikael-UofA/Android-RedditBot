@@ -1,9 +1,8 @@
-package com.example.redditbot;
+package com.example.redditbot.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
@@ -15,13 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.redditbot.DataHolders.AgentInfo;
+import com.example.redditbot.DataHolders.Client;
+import com.example.redditbot.CurrentUser;
+import com.example.redditbot.R;
 import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements Client.BoolCallBack {
 
     CurrentUser user;
     TextView viewAppName;
@@ -49,8 +52,6 @@ public class SettingsFragment extends Fragment {
 
         viewAppName = view.findViewById(R.id.agent_app_name);
         viewAgentId = view.findViewById(R.id.agent_clientId);
-        viewDevName = view.findViewById(R.id.agent_username);
-        viewReceiver = view.findViewById(R.id.agent_receiver);
         viewAuthor = view.findViewById(R.id.agent_author);
         deleteButton = view.findViewById(R.id.deleteButton);
         avatar = view.findViewById(R.id.avatar);
@@ -75,13 +76,9 @@ public class SettingsFragment extends Fragment {
         authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean success = user.authClient();
-                if (success) {
-                    user.setConnected(true);
-                    Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
-                    setButtonOff();
-                } else {
-                    Toast.makeText(getContext(), "Authentication Unsuccessful", Toast.LENGTH_SHORT).show();
+                if (authButton.isClickable()) {
+                    //user.authClient(SettingsFragment.this);
+                    user.authClient2();
                 }
 
             }
@@ -101,27 +98,34 @@ public class SettingsFragment extends Fragment {
         agent = CurrentUser.getInstance().getAgent();
         String appNameString;
         String agentIdString;
-        String devNameString;
         String authorString;
         if (agent == null) {
             appNameString = "NO AGENT";
             agentIdString = "ID: N/A";
-            devNameString = "Dev: N/A";
             authorString = "Author: N/A";
             deleteButton.setBackground(ResourcesCompat.getDrawable(requireContext().getResources(), R.drawable.blue_add_button, null));
             avatar.setImageResource(R.drawable.reddit_avatar);
         } else {
             appNameString = agent.getAgentAppName();
             agentIdString = "ID: " + agent.getAgentClientId();
-            devNameString = "Dev: " + agent.getAgentUsername();
             authorString = "Author: " + agent.getAgentAuthorName();
             deleteButton.setBackground(ResourcesCompat.getDrawable(requireContext().getResources(), R.drawable.red_delete_button, null));
             avatar.setImageResource(R.drawable.happy_reddit_avatar);
         }
         viewAppName.setText(appNameString);
         viewAgentId.setText(agentIdString);
-        viewDevName.setText(devNameString);
         viewAuthor.setText(authorString);
 
+    }
+
+    @Override
+    public void onResult(Boolean success) {
+        if (success) {
+            user.setConnected(true);
+            Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+            setButtonOff();
+        } else {
+            Toast.makeText(getContext(), "Authentication Unsuccessful", Toast.LENGTH_SHORT).show();
+        }
     }
 }

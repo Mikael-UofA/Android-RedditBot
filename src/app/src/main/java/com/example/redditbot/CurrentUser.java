@@ -3,20 +3,21 @@ package com.example.redditbot;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.redditbot.Containers.SubredditList;
+import com.example.redditbot.DataHolders.AgentInfo;
+import com.example.redditbot.DataHolders.Client;
+import com.example.redditbot.DataHolders.Subreddit;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import masecla.reddit4j.client.Reddit4J;
-import masecla.reddit4j.client.UserAgentBuilder;
-
 public class CurrentUser implements Serializable {
-
     private static final CurrentUser instance = new CurrentUser();
     private AgentInfo agent;
     private SubredditList subreddits;
-    private Client client;
+    private final Client client;
     private Boolean connected;
 
     private CurrentUser() {
@@ -59,8 +60,11 @@ public class CurrentUser implements Serializable {
     public void editSubreddit(Subreddit subreddit, int position) {
         this.subreddits.replace(subreddit, position);
     }
-    public Boolean authClient() {
-        return client.beginAuthentication(agent);
+    public void authClient2() {
+        client.startConnection2();
+    }
+    public void setClientInfo() {
+        client.setInfo(agent);
     }
 
     public void saveAgentInfo(Context context) {

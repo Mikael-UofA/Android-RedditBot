@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.redditbot.Adapters.PostAdapter;
+import com.example.redditbot.Containers.PostList;
+import com.example.redditbot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import masecla.reddit4j.objects.RedditPost;

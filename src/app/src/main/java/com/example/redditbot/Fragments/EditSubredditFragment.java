@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Fragments;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.redditbot.CurrentUser;
+import com.example.redditbot.R;
+import com.example.redditbot.Adapters.StringAdapter;
+import com.example.redditbot.DataHolders.Subreddit;
 
 import java.util.ArrayList;
 import java.util.MissingFormatArgumentException;

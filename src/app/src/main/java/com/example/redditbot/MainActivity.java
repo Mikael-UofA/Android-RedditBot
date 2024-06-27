@@ -1,14 +1,10 @@
 package com.example.redditbot;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,15 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.redditbot.Containers.SubredditList;
+import com.example.redditbot.DataHolders.AgentInfo;
+import com.example.redditbot.Fragments.SettingsFragment;
+import com.example.redditbot.NavHosts.HomeNavHost;
 import com.example.redditbot.databinding.ActivityMainBinding;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         user.setSubreddits(list);
         user.setAgent(agentInfo);
+        if (agentInfo != null) {
+            user.setClientInfo();
+        }
 
         ChangeFragment(new HomeNavHost());
 

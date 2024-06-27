@@ -1,6 +1,4 @@
-package com.example.redditbot;
-
-import android.util.Log;
+package com.example.redditbot.DataHolders;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,38 +10,37 @@ import masecla.reddit4j.exceptions.AuthenticationException;
 import masecla.reddit4j.objects.RedditPost;
 import masecla.reddit4j.objects.Sorting;
 import masecla.reddit4j.requests.SubredditPostListingEndpointRequest;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Client {
+
+    public interface BoolCallBack {
+        void onResult(Boolean success);
+    }
+    public interface PostCallBack {
+        void onResult(ArrayList<RedditPost> posts);
+    }
     private Reddit4J client;
     private final Sorting sorting = Sorting.NEW;
-
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private BoolCallBack callBack;
     public Client() {
     }
 
-
-    public Boolean beginAuthentication(AgentInfo agent) {
-        try {
-            if (agent == null) {
-                throw new NullPointerException("User does not have a agent");
-            }
-            client = Reddit4J.rateLimited().setUsername(agent.getAgentUsername())
-                    .setPassword(agent.getAgentPass())
-                    .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
-                    .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
-            client.connect();
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+    public void setInfo(AgentInfo agent) {
+        client = Reddit4J.rateLimited()
+                .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
+                .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
     }
-
-    public ArrayList<RedditPost> getTopPosts(Subreddit subreddit){
+    public void getTopPosts(Subreddit subreddit, PostCallBack callBack){
         SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
         List<RedditPost> posts;
         try {
             posts =  request.submit();
         } catch (Exception e) {
-            return new ArrayList<>();
+           callBack.onResult(new ArrayList<>());
+           return;
         }
         int maxPosts = subreddit.getMaxPosts();
         ArrayList<RedditPost> returnedPosts = new ArrayList<>();
@@ -58,10 +55,17 @@ public class Client {
                 }
             }
         }
-        return returnedPosts;
+        callBack.onResult(returnedPosts);
     }
     public Reddit4J getClient() {
         return client;
     }
 
+    public void startConnection2() {
+        try {
+            client.userlessConnect();
+        } catch (IOException | AuthenticationException | InterruptedException e) {
+            System.out.println("Connection Error in Client");
+        }
+    }
 }

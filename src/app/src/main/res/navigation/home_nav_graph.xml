@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.redditbot.HomeFragment"
+        android:name="com.example.redditbot.Fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -22,17 +22,17 @@
     </fragment>
     <fragment
         android:id="@+id/addSubredditFragment"
-        android:name="com.example.redditbot.AddSubredditFragment"
+        android:name="com.example.redditbot.Fragments.AddSubredditFragment"
         android:label="fragment_add_subreddit"
         tools:layout="@layout/fragment_add_subreddit" />
     <fragment
         android:id="@+id/editSubredditFragment"
-        android:name="com.example.redditbot.EditSubredditFragment"
+        android:name="com.example.redditbot.Fragments.EditSubredditFragment"
         android:label="fragment_edit_subreddit"
         tools:layout="@layout/fragment_edit_subreddit" />
     <fragment
         android:id="@+id/postsFragment"
-        android:name="com.example.redditbot.PostsFragment"
+        android:name="com.example.redditbot.Fragments.PostsFragment"
         android:label="fragment_posts"
         tools:layout="@layout/fragment_posts" />
 </navigation>

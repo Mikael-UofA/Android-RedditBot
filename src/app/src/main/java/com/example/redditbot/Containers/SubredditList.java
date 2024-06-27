@@ -1,8 +1,9 @@
-package com.example.redditbot;
+package com.example.redditbot.Containers;
+
+import com.example.redditbot.DataHolders.Subreddit;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class SubredditList implements Serializable {
     private final ArrayList<Subreddit> subreddits = new ArrayList<>();

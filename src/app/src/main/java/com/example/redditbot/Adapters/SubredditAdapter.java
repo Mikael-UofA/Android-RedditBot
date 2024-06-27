@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Adapters;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.redditbot.Containers.SubredditList;
+import com.example.redditbot.CurrentUser;
+import com.example.redditbot.R;
 
 
 public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.ViewHolder>{

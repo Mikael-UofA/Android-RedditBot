@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Fragments;
 
 import android.os.Bundle;
 
@@ -11,6 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Containers.PostList;
+import com.example.redditbot.R;
+import com.example.redditbot.Adapters.SubredditAdapter;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -36,6 +41,7 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
 
         RecyclerView subreddits = view.findViewById(R.id.subreddit_list);
         FloatingActionButton addButton = view.findViewById(R.id.add_button);
+        MaterialButton lookupButton = view.findViewById(R.id.lookup_button);
 
         CurrentUser user = CurrentUser.getInstance();
         SubredditAdapter adapter = new SubredditAdapter(user.getSubreddits(), this);
@@ -45,6 +51,14 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_addSubredditFragment);
+            }
+        });
+        lookupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putSerializable("RedditPosts", new PostList());
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment);
             }
         });
 

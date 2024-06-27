@@ -1,10 +1,11 @@
-package com.example.redditbot;
+package com.example.redditbot.Containers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import masecla.reddit4j.objects.RedditPost;
 
-public class PostList {
+public class PostList implements Serializable {
     private final ArrayList<RedditPost> posts = new ArrayList<>();
 
     public PostList() {
