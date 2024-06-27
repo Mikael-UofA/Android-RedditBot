@@ -1,5 +1,7 @@
 package com.example.redditbot.DataHolders;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +17,19 @@ import java.util.concurrent.Executors;
 
 public class Client {
 
-    public interface BoolCallBack {
-        void onResult(Boolean success);
-    }
     public interface PostCallBack {
         void onResult(ArrayList<RedditPost> posts);
     }
     private Reddit4J client;
     private final Sorting sorting = Sorting.NEW;
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private BoolCallBack callBack;
     public Client() {
     }
 
-    public void setInfo(AgentInfo agent) {
+    public void setInfo(AgentInfo agent) throws AuthenticationException, IOException, InterruptedException {
         client = Reddit4J.rateLimited()
                 .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
                 .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
+        client.userlessConnect();
     }
     public void getTopPosts(Subreddit subreddit, PostCallBack callBack){
         SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
@@ -61,7 +59,7 @@ public class Client {
         return client;
     }
 
-    public void startConnection2() {
+    public void startConnection() {
         try {
             client.userlessConnect();
         } catch (IOException | AuthenticationException | InterruptedException e) {

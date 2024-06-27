@@ -24,16 +24,13 @@ import com.google.android.material.button.MaterialButton;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment implements Client.BoolCallBack {
+public class SettingsFragment extends Fragment{
 
     CurrentUser user;
     TextView viewAppName;
     TextView viewAgentId;
-    TextView viewDevName;
-    TextView viewReceiver;
     TextView viewAuthor;
     ImageButton deleteButton;
-    MaterialButton authButton;
     ImageView avatar;
     AgentInfo agent;
 
@@ -55,12 +52,10 @@ public class SettingsFragment extends Fragment implements Client.BoolCallBack {
         viewAuthor = view.findViewById(R.id.agent_author);
         deleteButton = view.findViewById(R.id.deleteButton);
         avatar = view.findViewById(R.id.avatar);
-        authButton = view.findViewById(R.id.button);
 
         user = CurrentUser.getInstance();
         agent = user.getAgent();
         setViews();
-        setButtonOff();
 
         deleteButton.setOnClickListener(v -> {
             AddAgentFragment fragment = new AddAgentFragment();
@@ -73,27 +68,10 @@ public class SettingsFragment extends Fragment implements Client.BoolCallBack {
             }
             setViews();
         });
-        authButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (authButton.isClickable()) {
-                    //user.authClient(SettingsFragment.this);
-                    user.authClient2();
-                }
-
-            }
-        });
         return view;
     }
 
-    public void setButtonOff() {
-        if (user.getConnected()) {
-            authButton.setClickable(false);
-            authButton.setBackgroundColor(Color.DKGRAY);
-        } else {
-            authButton.setBackgroundColor(Color.BLUE);
-        }
-    }
+
     public void setViews() {
         agent = CurrentUser.getInstance().getAgent();
         String appNameString;
@@ -116,16 +94,5 @@ public class SettingsFragment extends Fragment implements Client.BoolCallBack {
         viewAgentId.setText(agentIdString);
         viewAuthor.setText(authorString);
 
-    }
-
-    @Override
-    public void onResult(Boolean success) {
-        if (success) {
-            user.setConnected(true);
-            Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
-            setButtonOff();
-        } else {
-            Toast.makeText(getContext(), "Authentication Unsuccessful", Toast.LENGTH_SHORT).show();
-        }
     }
 }

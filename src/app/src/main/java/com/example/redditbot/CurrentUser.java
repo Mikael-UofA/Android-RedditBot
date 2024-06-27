@@ -1,7 +1,10 @@
 package com.example.redditbot;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.redditbot.Containers.SubredditList;
 import com.example.redditbot.DataHolders.AgentInfo;
@@ -60,11 +63,34 @@ public class CurrentUser implements Serializable {
     public void editSubreddit(Subreddit subreddit, int position) {
         this.subreddits.replace(subreddit, position);
     }
-    public void authClient2() {
-        client.startConnection2();
+    public void authClient() {
+        client.startConnection();
     }
-    public void setClientInfo() {
-        client.setInfo(agent);
+    public void setClientInfo(Context context) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    client.setInfo(agent);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Authentication Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Authentication Unsuccessful", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        thread.start();
     }
 
     public void saveAgentInfo(Context context) {

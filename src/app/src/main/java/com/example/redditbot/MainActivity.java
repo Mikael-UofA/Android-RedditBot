@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         user.setSubreddits(list);
         user.setAgent(agentInfo);
         if (agentInfo != null) {
-            user.setClientInfo();
+            user.setClientInfo(getApplicationContext());
         }
 
         ChangeFragment(new HomeNavHost());

@@ -54,7 +54,7 @@ public class AddAgentFragment extends DialogFragment {
                         agent.setAgentAppName(editAppName.getText().toString());
                         agent.setAgentAuthorName(authorName.getText().toString());
                         user.setAgent(agent);
-                        user.setClientInfo();
+                        user.setClientInfo(requireContext());
                         user.saveAgentInfo(requireContext());
                         Fragment targetFragment = getTargetFragment();
                         if (targetFragment instanceof SettingsFragment) {
