@@ -10,13 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.redditbot.CurrentUser;
 import com.example.redditbot.Containers.PostList;
+import com.example.redditbot.DataHolders.Client;
 import com.example.redditbot.R;
 import com.example.redditbot.Adapters.SubredditAdapter;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import masecla.reddit4j.objects.RedditPost;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +63,25 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
         lookupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle args = new Bundle();
-                args.putSerializable("RedditPosts", new PostList());
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment);
+                PostList list = new PostList();
+                user.getClient().handleRequests(user.getSubreddits(), new Client.PostCallBack() {
+                    @Override
+                    public void onResult(ArrayList<RedditPost> posts) {
+
+                    }
+
+                    @Override
+                    public void onResult(List<RedditPost> posts) {
+                        list.addAll((ArrayList<RedditPost>) posts);
+                        if (list.size() == 0) {
+                            Toast.makeText(requireContext(), "No posts found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Bundle args = new Bundle();
+                            args.putSerializable("RedditPosts", list);
+                            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment);
+                        }
+                    }
+                });
             }
         });
 

@@ -22,6 +22,12 @@ public class PostList implements Serializable {
         }
         posts.add(post);
     }
+    public void addAll(ArrayList<RedditPost> posts1) {
+        posts.addAll(posts1);
+    }
+    public int size() {
+        return posts.size();
+    }
     /**
      * This returns a sorted list of posts
      * @return
