@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,13 +73,14 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
 
                     @Override
                     public void onResult(List<RedditPost> posts) {
-                        list.addAll((ArrayList<RedditPost>) posts);
+                        list.addAll(posts);
+                        Log.w("ErrorDetection", "Length of returned lists: " + list.size());
                         if (list.size() == 0) {
                             Toast.makeText(requireContext(), "No posts found", Toast.LENGTH_SHORT).show();
                         } else {
                             Bundle args = new Bundle();
                             args.putSerializable("RedditPosts", list);
-                            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment);
+                            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment, args);
                         }
                     }
                 });

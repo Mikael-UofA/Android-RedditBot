@@ -2,6 +2,7 @@ package com.example.redditbot.Containers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import masecla.reddit4j.objects.RedditPost;
 
@@ -22,7 +23,7 @@ public class PostList implements Serializable {
         }
         posts.add(post);
     }
-    public void addAll(ArrayList<RedditPost> posts1) {
+    public void addAll(List<RedditPost> posts1) {
         posts.addAll(posts1);
     }
     public int size() {

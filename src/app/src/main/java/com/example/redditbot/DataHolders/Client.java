@@ -1,5 +1,7 @@
 package com.example.redditbot.DataHolders;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.example.redditbot.Containers.SubredditList;
@@ -37,28 +39,38 @@ public class Client {
         client.userlessConnect();
     }
     public void getTopPosts(Subreddit subreddit, PostCallBack callBack) {
-        SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
-        List<RedditPost> posts;
-        try {
-            posts = request.submit();
-        } catch (Exception e) {
-            callBack.onResult(new ArrayList<>());
-            return;
-        }
-        int maxPosts = Math.min(subreddit.getMaxPosts(), posts.size());
-        ArrayList<RedditPost> returnedPosts = new ArrayList<>();
-
-        for (int i = 0; i < maxPosts; i++) {
-            String title = posts.get(i).getTitle();
-            String text = posts.get(i).getSelftext();
-            for (String term : subreddit.getTerms()) {
-                if (title.toLowerCase().contains(term.toLowerCase()) || text.toLowerCase().contains(term.toLowerCase())) {
-                    returnedPosts.add(posts.get(i));
-                    break;
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
+                List<RedditPost> posts;
+                try {
+                    posts = request.submit();
+                } catch (Exception e) {
+                    Log.e("ErrorDetection", "Subreddit request unsuccessful: " + e);
+                    new Handler(Looper.getMainLooper()).post(() -> callBack.onResult(new ArrayList<>()));
+                    return;
                 }
+                Log.d("ErrorDetection", "Subreddit request successful");
+                int maxPosts = Math.min(subreddit.getMaxPosts(), posts.size());
+                ArrayList<RedditPost> returnedPosts = new ArrayList<>();
+
+                for (int i = 0; i < maxPosts; i++) {
+                    String title = posts.get(i).getTitle();
+                    String text = posts.get(i).getSelftext();
+                    for (String term : subreddit.getTerms()) {
+                        if (title.toLowerCase().contains(term.toLowerCase()) || text.toLowerCase().contains(term.toLowerCase())) {
+                            returnedPosts.add(posts.get(i));
+                            break;
+                        }
+                    }
+                }
+                Log.d("ErrorDetection", "Subreddit posts filtering complete");
+                new Handler(Looper.getMainLooper()).post(() -> callBack.onResult((List<RedditPost>) returnedPosts));
             }
-        }
-        callBack.onResult(returnedPosts);
+        });
+        thread.start();
+
     }
 
     public void handleRequests(SubredditList list, PostCallBack callBack) {
@@ -68,12 +80,15 @@ public class Client {
             getTopPosts(subreddit, new PostCallBack() {
                 @Override
                 public void onResult(ArrayList<RedditPost> posts) {
+                    Log.d("ErrorDetection", "getTopPosts for ArrayList");
                 }
 
                 @Override
                 public void onResult(List<RedditPost> posts) {
+                    Log.d("ErrorDetection", "getTopPosts for List");
                     returningPosts.addAll(posts);
                     if (count.decrementAndGet() == 0) {
+                        Log.d("ErrorDetection", "handleRequests: Finished going through each subreddit");
                         callBack.onResult(returningPosts);
                     }
                 }
