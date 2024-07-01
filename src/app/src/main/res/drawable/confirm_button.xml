@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background shape -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <!-- Cross icon -->
+    <item
+        android:width="64dp"
+        android:height="64dp"
+        android:drawable="@drawable/add_64"
+        android:gravity="center" />
+</layer-list>

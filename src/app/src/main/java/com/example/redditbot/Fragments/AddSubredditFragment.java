@@ -5,11 +5,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.redditbot.CurrentUser;
@@ -26,9 +29,7 @@ import java.util.Objects;
  */
 public class AddSubredditFragment extends Fragment {
     TextInputEditText subredditName;
-    TextInputEditText subredditMaxPosts;
     TextInputEditText subredditTerm;
-    ImageButton addTerm;
     TextView termsText;
     ArrayList<String> terms = new ArrayList<>();
     public AddSubredditFragment() {
@@ -46,47 +47,73 @@ public class AddSubredditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_subreddit, container, false);
 
         subredditName = view.findViewById(R.id.name_edit);
-        subredditMaxPosts = view.findViewById(R.id.max_posts_edit);
         subredditTerm = view.findViewById(R.id.terms_edit);
-        addTerm = view.findViewById(R.id.add_term);
         termsText = view.findViewById(R.id.terms_displayed);
 
-        Button confirmButton = view.findViewById(R.id.complete_button);
+        ImageButton confirmButton = view.findViewById(R.id.complete_button);
+        ImageButton cancelButton = view.findViewById(R.id.cancel_button);
+        TextView maxValue = view.findViewById(R.id.max_posts);
+        SeekBar seekBar = view.findViewById(R.id.seekBar);
+
+        String maxValueString = "Max. Posts: " + seekBar.getProgress();
+        maxValue.setText(maxValueString);
+
         CurrentUser user = CurrentUser.getInstance();
-        addTerm.setOnClickListener(new View.OnClickListener() {
+
+        subredditTerm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                if (terms.size() < 7 && validTerm()) {
-                    terms.add(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
-                    termsText.setText(displayTerm());
-                    subredditTerm.setText("");
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                    if (terms.size() < 10) {
+                        terms.add(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
+                        termsText.setText(displayTerm());
+                        subredditTerm.setText("");
+                    }
+                    return true;
                 }
+                return false;
             }
         });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                String maxValueString = "Max. Posts: " + seekBar.getProgress();
+                maxValue.setText(maxValueString);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validCondition()) {
-                    int maxPosts = Integer.parseInt(Objects.requireNonNull(subredditMaxPosts.getText()).toString());
-                    Subreddit subreddit = new Subreddit(Objects.requireNonNull(subredditName.getText()).toString().trim(), maxPosts, terms);
+                    Subreddit subreddit = new Subreddit(Objects.requireNonNull(subredditName.getText()).toString().trim(), seekBar.getProgress(), terms);
                     user.addSubreddit(subreddit);
                     user.saveSubreddits(requireContext());
                     Navigation.findNavController(view).popBackStack();
                 }
             }
         });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).popBackStack();
+            }
+        });
         return view;
     }
-
-    public Boolean validTerm() {
-        return !terms.contains(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
-    }
     public Boolean validCondition() {
-        if (subredditName == null || subredditMaxPosts == null || terms.isEmpty() || Objects.requireNonNull(subredditName.getText()).toString().length() < 3) {
-            return false;
-        }
-        int maxPosts = Integer.parseInt(Objects.requireNonNull(subredditMaxPosts.getText()).toString());
-        if (maxPosts > 20 || maxPosts < 1) {
+        if (subredditName == null || terms.isEmpty() || Objects.requireNonNull(subredditName.getText()).toString().length() < 3) {
             return false;
         }
         return terms.size() <= 7;
