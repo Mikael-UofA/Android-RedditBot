@@ -31,10 +31,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="217dp"
-                android:layout_height="75dp"
+                android:layout_width="215dp"
+                android:layout_height="200dp"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/dark_border">
+                android:layout_alignParentStart="true"
+                android:background="@color/nice_yellow">
 
 
             </RelativeLayout>
@@ -43,22 +44,25 @@
                 android:id="@+id/agent_app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+                android:paddingEnd="8dp"
+                android:text="@string/name"
+                android:textColor="@color/item_color"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/agent_clientId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/client_id"
-                android:textSize="11sp"
-                android:textStyle="italic"
+                android:layout_below="@id/agent_app_name"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="32dp"
-                android:layout_below="@id/agent_app_name"/>
+                android:text="@string/client_id"
+                android:textColor="@color/item_color"
+                android:textSize="11sp"
+                android:textStyle="italic" />
 
 
             <TextView
@@ -71,25 +75,27 @@
                 android:paddingBottom="8dp"
                 android:text="@string/agent_author"
                 android:textSize="16sp"
+                android:textColor="@color/item_color"
                 android:textStyle="italic" />
+
             <ImageView
                 android:id="@+id/avatar"
                 android:layout_width="135dp"
                 android:layout_height="100dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/reddit_avatar"
-                android:contentDescription="@string/image_of_a_reddit_avatar" />
+                android:contentDescription="@string/image_of_a_reddit_avatar"
+                android:src="@drawable/reddit_avatar" />
 
             <ImageButton
                 android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/red_delete_button"
-                android:padding="16dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:contentDescription="@string/delete_add_button" />
+                android:background="@drawable/red_delete_button"
+                android:contentDescription="@string/delete_add_button"
+                android:padding="16dp" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
