@@ -18,6 +18,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.SpaceItemDecoration;
 import com.example.redditbot.R;
 import com.example.redditbot.Adapters.StringAdapter;
 import com.example.redditbot.DataHolders.Subreddit;
@@ -56,6 +57,9 @@ public class EditSubredditFragment extends Fragment {
         EditText addTerm = view.findViewById(R.id.edit_term);
         Button confirmButton = view.findViewById(R.id.done_button);
         Button cancelButton = view.findViewById(R.id.cancel_button);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
         CurrentUser user = CurrentUser.getInstance();
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");

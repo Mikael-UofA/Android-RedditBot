@@ -1,4 +1,4 @@
-package com.example.redditbot.NavHosts;
+package com.example.redditbot.Misc;
 
 import android.os.Bundle;
 
