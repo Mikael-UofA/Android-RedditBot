@@ -65,7 +65,7 @@ public class EditSubredditFragment extends Fragment {
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");
         int position = (int) getArguments().get("position");
         assert subreddit != null;
-        String titleText = "r/ " + subreddit.getName();
+        String titleText = "r/" + subreddit.getName();
         title.setText(titleText);
         ArrayList<String> terms = subreddit.getTerms();
 

@@ -24,5 +24,6 @@
     <color name="symbol_color">#37ff77</color>
     <color name="discord_grey">#40444b</color>
     <color name="discord_blue">#7289da</color>
+    <color name="thumbColor">#7da565</color>
 
 </resources>
