@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.redditbot.Adapters.PostAdapter;
 import com.example.redditbot.Containers.PostList;
@@ -42,7 +43,7 @@ public class PostsFragment extends Fragment implements PostAdapter.onItemClickLi
         assert getArguments() != null;
         PostList posts = (PostList) getArguments().get("RedditPosts");
         RecyclerView recyclerView = view.findViewById(R.id.posts_listview);
-        FloatingActionButton backButton = view.findViewById(R.id.back_button);
+        ImageButton backButton = view.findViewById(R.id.back_button);
 
         PostAdapter adapter = new PostAdapter(posts, this);
         recyclerView.setAdapter(adapter);
