@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ import com.example.redditbot.DataHolders.Subreddit;
 
 import java.util.ArrayList;
 import java.util.MissingFormatArgumentException;
+import java.util.Objects;
 
 /**
  * create an instance of this fragment.
@@ -32,7 +36,6 @@ import java.util.MissingFormatArgumentException;
 public class EditSubredditFragment extends Fragment {
 
     public EditSubredditFragment() {
-        // Required empty public constructor
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +58,8 @@ public class EditSubredditFragment extends Fragment {
         SeekBar seekBar = view.findViewById(R.id.seekBar);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         EditText addTerm = view.findViewById(R.id.edit_term);
-        Button confirmButton = view.findViewById(R.id.done_button);
-        Button cancelButton = view.findViewById(R.id.cancel_button);
+        ImageButton confirmButton = view.findViewById(R.id.done_button);
+        ImageButton cancelButton = view.findViewById(R.id.cancel_button);
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
@@ -94,22 +97,39 @@ public class EditSubredditFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        addTerm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                    if (terms.size() <= 10 && addTerm.getError() == null && addTerm.length() != 0) {
+                        terms.add(Objects.requireNonNull(addTerm.getText()).toString().trim());
+                        adapter.notifyItemInserted(terms.size() - 1);
+                        addTerm.getText().clear();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         addTerm.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
             @Override
             public void afterTextChanged(Editable s) {
-                String inputText = s.toString();
-
-                if (!inputText.isEmpty() && inputText.length() >= 3 && terms.size() < 7) {
-                    terms.add(inputText);
-                    adapter.notifyItemInserted(terms.size() - 1);
-                    addTerm.getText().clear();
-
+                String input = s.toString();
+                if (input.length() == 1) {
+                    addTerm.setError("Input must be at least 2 characters");
+                } else if (input.length() > 21) {
+                    addTerm.setError("Input must be no more than 21 characters");
+                } else {
+                    addTerm.setError(null);
                 }
             }
         });

@@ -80,7 +80,7 @@ public class AddSubredditFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE ||
                         (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                    if (terms.size() < 10 && subredditTerm.getError() == null && subredditTerm.length() != 0) {
+                    if (terms.size() <= 10 && subredditTerm.getError() == null && subredditTerm.length() != 0) {
                         terms.add(Objects.requireNonNull(subredditTerm.getText()).toString().trim());
                         adapter.notifyItemInserted(terms.size() - 1);
                         subredditTerm.getText().clear();
