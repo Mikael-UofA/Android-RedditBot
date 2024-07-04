@@ -46,7 +46,7 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.View
         holder.textView.setText(str);
 
         // Set click listener on the end drawable
-        holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_delete, 0);
+        holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.green_trash_can, 0);
         holder.textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

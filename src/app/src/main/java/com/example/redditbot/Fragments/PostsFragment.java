@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import com.example.redditbot.Adapters.PostAdapter;
 import com.example.redditbot.Containers.PostList;
 import com.example.redditbot.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import masecla.reddit4j.objects.RedditPost;
 
@@ -49,12 +48,7 @@ public class PostsFragment extends Fragment implements PostAdapter.onItemClickLi
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).popBackStack();
-            }
-        });
+        backButton.setOnClickListener(v -> Navigation.findNavController(view).popBackStack());
         return view;
     }
 

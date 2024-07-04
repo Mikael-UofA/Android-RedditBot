@@ -1,11 +1,5 @@
 package com.example.redditbot.DataHolders;
 
-import android.content.Context;
-import android.util.Log;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class AgentInfo implements Serializable {

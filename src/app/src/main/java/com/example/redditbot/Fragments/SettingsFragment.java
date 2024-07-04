@@ -78,7 +78,7 @@ public class SettingsFragment extends Fragment{
             agentIdString = "ID: N/A";
             authorString = "Author: N/A";
             deleteButton.setBackground(ResourcesCompat.getDrawable(requireContext().getResources(), R.drawable.blue_add_button, null));
-            avatar.setImageResource(R.drawable.reddit_avatar);
+            avatar.setImageResource(R.drawable.sad_reddit_avatar);
         } else {
             appNameString = agent.getAgentAppName();
             agentIdString = "ID: " + agent.getAgentClientId();

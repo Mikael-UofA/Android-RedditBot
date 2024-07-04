@@ -3,17 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cancel_button_red">#FF4444</color>
-    <color name="done_button_green">#44FF44</color>
-    <color name="dark_blue">#414A61</color>
-    <color name="nice_green">#088F8F</color>
-    <color name="nice_grey">#585665</color>
-    <color name="nice_green2">#b5bc89</color>
-    <color name="nice_yellow">#4E4757</color>
-    <color name="nice_red">#a96e59</color>
-    <color name="nice_brown">#3d2d29</color>
-    <color name="cyan">#088d83</color>
-    <color name="dark_blue2">#0A1F2F</color>
-    <color name="clear_blue">#6ec3dc</color>
     <color name="post_card">#1E1E1E</color>
     <color name="nicer_blue">#0b2526</color>
     <color name="background">#282b30</color>
@@ -25,5 +14,9 @@
     <color name="discord_grey">#40444b</color>
     <color name="discord_blue">#7289da</color>
     <color name="thumbColor">#7da565</color>
+    <color name="dark_blue2">#0A1F2F</color>
+    <color name="nice_yellow">#4E4757</color>
+    <color name="nice_grey">#585665</color>
+    <color name="clear_blue">#6ec3dc</color>
 
 </resources>

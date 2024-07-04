@@ -10,6 +10,6 @@
     <item
         android:width="24dp"
         android:height="24dp"
-        android:drawable="@drawable/baseline_remove"
+        android:drawable="@drawable/black_minus_sign"
         android:gravity="center" />
 </layer-list>

@@ -32,7 +32,7 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder
         holder.textView.setText(str);
 
         // Set click listener on the end drawable
-        holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_delete, 0);
+        holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.green_trash_can, 0);
         holder.textView.setOnClickListener(new View.OnClickListener() {
             final int i = holder.getAdapterPosition();
             @Override

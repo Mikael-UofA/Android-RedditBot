@@ -85,7 +85,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/image_of_a_reddit_avatar"
-                android:src="@drawable/reddit_avatar" />
+                android:src="@drawable/sad_reddit_avatar" />
 
             <ImageButton
                 android:id="@+id/deleteButton"

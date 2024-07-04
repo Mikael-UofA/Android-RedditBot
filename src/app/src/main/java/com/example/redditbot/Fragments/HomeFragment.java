@@ -62,37 +62,29 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
         subreddits.setAdapter(adapter);
         subreddits.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_addSubredditFragment);
-            }
-        });
-        lookupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                PostList list = new PostList();
-                user.getClient().handleRequests(user.getSubreddits(), progressBar, new Client.PostCallBack() {
-                    @Override
-                    public void onResult(ArrayList<RedditPost> posts) {
+        addButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_addSubredditFragment));
+        lookupButton.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            PostList list = new PostList();
+            user.getClient().handleRequests(user.getSubreddits(), progressBar, new Client.PostCallBack() {
+                @Override
+                public void onResult(ArrayList<RedditPost> posts) {
 
-                    }
+                }
 
-                    @Override
-                    public void onResult(List<RedditPost> posts) {
-                        list.addAll(posts);
-                        Log.w("ErrorDetection", "Length of returned lists: " + list.size());
-                        if (list.size() == 0) {
-                            Toast.makeText(requireContext(), "No posts found", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Bundle args = new Bundle();
-                            args.putSerializable("RedditPosts", list);
-                            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment, args);
-                        }
+                @Override
+                public void onResult(List<RedditPost> posts) {
+                    list.addAll(posts);
+                    Log.w("ErrorDetection", "Length of returned lists: " + list.size());
+                    if (list.size() == 0) {
+                        Toast.makeText(requireContext(), "No posts found", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Bundle args = new Bundle();
+                        args.putSerializable("RedditPosts", list);
+                        Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_postsFragment, args);
                     }
-                });
-            }
+                }
+            });
         });
 
         return view;

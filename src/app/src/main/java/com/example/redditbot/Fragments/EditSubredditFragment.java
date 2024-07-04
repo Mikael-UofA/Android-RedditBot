@@ -96,20 +96,17 @@ public class EditSubredditFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        addTerm.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE ||
-                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                    if (terms.size() <= 10 && addTerm.getError() == null && addTerm.length() != 0) {
-                        terms.add(Objects.requireNonNull(addTerm.getText()).toString().trim());
-                        adapter.notifyItemInserted(terms.size() - 1);
-                        addTerm.getText().clear();
-                    }
-                    return true;
+        addTerm.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                if (terms.size() <= 10 && addTerm.getError() == null && addTerm.length() != 0) {
+                    terms.add(Objects.requireNonNull(addTerm.getText()).toString().trim());
+                    adapter.notifyItemInserted(terms.size() - 1);
+                    addTerm.getText().clear();
                 }
-                return false;
+                return true;
             }
+            return false;
         });
         addTerm.addTextChangedListener(new TextWatcher() {
             @Override
@@ -133,22 +130,14 @@ public class EditSubredditFragment extends Fragment {
             }
         });
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                subreddit.setMaxPosts(seekBar.getProgress());
-                subreddit.setTerms(adapter.getStringList());
-                user.editSubreddit(subreddit, position);
-                user.saveSubreddits(requireContext());
-                Navigation.findNavController(view).popBackStack();
-            }
+        confirmButton.setOnClickListener(v -> {
+            subreddit.setMaxPosts(seekBar.getProgress());
+            subreddit.setTerms(adapter.getStringList());
+            user.editSubreddit(subreddit, position);
+            user.saveSubreddits(requireContext());
+            Navigation.findNavController(view).popBackStack();
         });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).popBackStack();
-            }
-        });
+        cancelButton.setOnClickListener(v -> Navigation.findNavController(view).popBackStack());
         return view;
     }
 

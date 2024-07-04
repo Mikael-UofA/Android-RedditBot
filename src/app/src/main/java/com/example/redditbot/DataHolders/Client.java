@@ -19,8 +19,6 @@ import masecla.reddit4j.exceptions.AuthenticationException;
 import masecla.reddit4j.objects.RedditPost;
 import masecla.reddit4j.objects.Sorting;
 import masecla.reddit4j.requests.SubredditPostListingEndpointRequest;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Client {
@@ -41,35 +39,32 @@ public class Client {
         client.userlessConnect();
     }
     public void getTopPosts(Subreddit subreddit, PostCallBack callBack) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
-                List<RedditPost> posts;
-                try {
-                    posts = request.submit();
-                } catch (Exception e) {
-                    Log.e("ErrorDetection", "Subreddit request unsuccessful: " + e);
-                    new Handler(Looper.getMainLooper()).post(() -> callBack.onResult(new ArrayList<>()));
-                    return;
-                }
-                Log.d("ErrorDetection", "Subreddit request successful");
-                int maxPosts = Math.min(subreddit.getMaxPosts(), posts.size());
-                ArrayList<RedditPost> returnedPosts = new ArrayList<>();
+        Thread thread = new Thread(() -> {
+            SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
+            List<RedditPost> posts;
+            try {
+                posts = request.submit();
+            } catch (Exception e) {
+                Log.e("ErrorDetection", "Subreddit request unsuccessful: " + e);
+                new Handler(Looper.getMainLooper()).post(() -> callBack.onResult(new ArrayList<>()));
+                return;
+            }
+            Log.d("ErrorDetection", "Subreddit request successful");
+            int maxPosts = Math.min(subreddit.getMaxPosts(), posts.size());
+            ArrayList<RedditPost> returnedPosts = new ArrayList<>();
 
-                for (int i = 0; i < maxPosts; i++) {
-                    String title = posts.get(i).getTitle();
-                    String text = posts.get(i).getSelftext();
-                    for (String term : subreddit.getTerms()) {
-                        if (title.toLowerCase().contains(term.toLowerCase()) || text.toLowerCase().contains(term.toLowerCase())) {
-                            returnedPosts.add(posts.get(i));
-                            break;
-                        }
+            for (int i = 0; i < maxPosts; i++) {
+                String title = posts.get(i).getTitle();
+                String text = posts.get(i).getSelftext();
+                for (String term : subreddit.getTerms()) {
+                    if (title.toLowerCase().contains(term.toLowerCase()) || text.toLowerCase().contains(term.toLowerCase())) {
+                        returnedPosts.add(posts.get(i));
+                        break;
                     }
                 }
-                Log.d("ErrorDetection", "Subreddit posts filtering complete");
-                new Handler(Looper.getMainLooper()).post(() -> callBack.onResult((List<RedditPost>) returnedPosts));
             }
+            Log.d("ErrorDetection", "Subreddit posts filtering complete");
+            new Handler(Looper.getMainLooper()).post(() -> callBack.onResult((List<RedditPost>) returnedPosts));
         });
         thread.start();
 
@@ -103,12 +98,7 @@ public class Client {
                                 progressBar.setProgress(progressBar.getProgress() + 1);
                                 callBack.onResult(returningPosts);
                             }
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setProgress(progressBar.getProgress() + 1);
-                                }
-                            });
+                            handler.post(() -> progressBar.setProgress(progressBar.getProgress() + 1));
                         }
                     });
 

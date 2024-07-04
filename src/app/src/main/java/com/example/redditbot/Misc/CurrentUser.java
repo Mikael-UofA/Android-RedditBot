@@ -50,25 +50,12 @@ public class CurrentUser implements Serializable {
     }
     public void setClientInfo(Context context) {
         Handler handler = new Handler(Looper.getMainLooper());
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    client.setInfo(agent);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Authentication Successful", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (Exception e) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context, "Authentication Unsuccessful", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+        Thread thread = new Thread(() -> {
+            try {
+                client.setInfo(agent);
+                handler.post(() -> Toast.makeText(context, "Authentication Successful", Toast.LENGTH_SHORT).show());
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(context, "Authentication Unsuccessful", Toast.LENGTH_SHORT).show());
             }
         });
 

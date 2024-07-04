@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             return (AgentInfo) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            Log.w("FileLoading", "Error: " + e);;
+            Log.w("FileLoading", "Error: " + e);
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
              ObjectInputStream ois = new ObjectInputStream(fis)) {
             return (SubredditList) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            Log.w("FileLoading", "Error: " + e);;
+            Log.w("FileLoading", "Error: " + e);
         }
         return new SubredditList();
     }

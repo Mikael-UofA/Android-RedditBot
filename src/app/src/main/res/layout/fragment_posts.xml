@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/back"
+        android:src="@drawable/back_button_symbol"
         android:contentDescription="@string/back_button" />
 
     <TextView

@@ -30,14 +30,7 @@ public class SubredditList implements Serializable {
     public ArrayList<Subreddit> getSubreddits() {
         return subreddits;
     }
-    /**
-     * This returns a boolean that represents whether or not
-     * this list contains a specific subreddit
-     * @param subreddit This is the subreddit we're trying to find in the list
-     */
-    public boolean has(Subreddit subreddit) {
-        return subreddits.contains(subreddit);
-    }
+
     /**
      * Removes subreddit from list if it exists
      * Otherwise will throw an error if the item to be deleted doesn't exist
