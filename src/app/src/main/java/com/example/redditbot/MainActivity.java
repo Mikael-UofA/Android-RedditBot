@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.redditbot.Containers.SubredditList;
 import com.example.redditbot.DataHolders.AgentInfo;
 import com.example.redditbot.Fragments.SettingsFragment;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.Misc.HomeNavHost;
 import com.example.redditbot.databinding.ActivityMainBinding;
 

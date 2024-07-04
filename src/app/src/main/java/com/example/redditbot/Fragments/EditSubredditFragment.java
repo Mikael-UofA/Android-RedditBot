@@ -14,13 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.Misc.SpaceItemDecoration;
 import com.example.redditbot.R;
 import com.example.redditbot.Adapters.StringAdapter;

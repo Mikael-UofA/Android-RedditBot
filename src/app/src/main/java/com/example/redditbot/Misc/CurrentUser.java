@@ -1,4 +1,4 @@
-package com.example.redditbot;
+package com.example.redditbot.Misc;
 
 import android.content.Context;
 import android.os.Handler;

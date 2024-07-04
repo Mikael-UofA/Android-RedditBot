@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.redditbot.DataHolders.AgentInfo;
-import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.R;
 
 import java.util.Objects;

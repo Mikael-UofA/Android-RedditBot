@@ -3,12 +3,14 @@ package com.example.redditbot.DataHolders;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.example.redditbot.Containers.SubredditList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import masecla.reddit4j.client.Reddit4J;
@@ -73,37 +75,49 @@ public class Client {
 
     }
 
-    public void handleRequests(SubredditList list, PostCallBack callBack) {
+    public void handleRequests(SubredditList list, ProgressBar progressBar, PostCallBack callBack) {
         List<RedditPost> returningPosts = Collections.synchronizedList(new ArrayList<>());
         AtomicInteger count = new AtomicInteger(list.getSubreddits().size());
-        for (Subreddit subreddit : list.getSubreddits()) {
-            getTopPosts(subreddit, new PostCallBack() {
-                @Override
-                public void onResult(ArrayList<RedditPost> posts) {
-                    Log.d("ErrorDetection", "getTopPosts for ArrayList");
-                }
+        Handler handler = new Handler(Looper.getMainLooper());
+        Iterator<Subreddit> iterator = list.getSubreddits().iterator();
 
-                @Override
-                public void onResult(List<RedditPost> posts) {
-                    Log.d("ErrorDetection", "getTopPosts for List");
-                    returningPosts.addAll(posts);
-                    if (count.decrementAndGet() == 0) {
-                        Log.d("ErrorDetection", "handleRequests: Finished going through each subreddit");
-                        callBack.onResult(returningPosts);
-                    }
-                }
-            });
-        }
-    }
-    public Reddit4J getClient() {
-        return client;
-    }
+        progressBar.setMax(list.getSubreddits().size());
+        progressBar.setProgress(0);
 
-    public void startConnection() {
-        try {
-            client.userlessConnect();
-        } catch (IOException | AuthenticationException | InterruptedException e) {
-            System.out.println("Connection Error in Client");
-        }
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                if (iterator.hasNext()) {
+                    Subreddit subreddit = iterator.next();
+                    getTopPosts(subreddit, new PostCallBack() {
+                        @Override
+                        public void onResult(ArrayList<RedditPost> posts) {
+                            Log.d("ErrorDetection", "Error: getTopPosts for ArrayList");
+                        }
+
+                        @Override
+                        public void onResult(List<RedditPost> posts) {
+                            returningPosts.addAll(posts);
+                            if (count.decrementAndGet() == 0) {
+                                Log.d("ErrorDetection", "handleRequests: Finished going through each subreddit");
+                                progressBar.setProgress(progressBar.getProgress() + 1);
+                                callBack.onResult(returningPosts);
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(progressBar.getProgress() + 1);
+                                }
+                            });
+                        }
+                    });
+
+                    handler.postDelayed(this, 2000);
+                }
+            }
+        };
+
+        // Start the first iteration
+        handler.post(task);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.redditbot.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -12,13 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.redditbot.DataHolders.AgentInfo;
-import com.example.redditbot.DataHolders.Client;
-import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.R;
-import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.

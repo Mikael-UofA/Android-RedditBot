@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.redditbot.Containers.SubredditList;
-import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.R;
 
 

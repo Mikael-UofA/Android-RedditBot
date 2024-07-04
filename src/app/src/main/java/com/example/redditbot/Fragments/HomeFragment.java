@@ -12,16 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.redditbot.CurrentUser;
+import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.Containers.PostList;
 import com.example.redditbot.DataHolders.Client;
 import com.example.redditbot.Misc.SpaceItemDecoration;
 import com.example.redditbot.R;
 import com.example.redditbot.Adapters.SubredditAdapter;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +53,7 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
         RecyclerView subreddits = view.findViewById(R.id.subreddit_list);
         ImageButton addButton = view.findViewById(R.id.add_button);
         ImageButton lookupButton = view.findViewById(R.id.lookup_button);
+        ProgressBar progressBar = view.findViewById(R.id.progress_bar);
 
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
@@ -71,8 +71,9 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
         lookupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 PostList list = new PostList();
-                user.getClient().handleRequests(user.getSubreddits(), new Client.PostCallBack() {
+                user.getClient().handleRequests(user.getSubreddits(), progressBar, new Client.PostCallBack() {
                     @Override
                     public void onResult(ArrayList<RedditPost> posts) {
 
