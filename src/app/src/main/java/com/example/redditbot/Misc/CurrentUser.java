@@ -45,7 +45,7 @@ public class CurrentUser implements Serializable {
     public void addSubreddit(Subreddit subreddit) {
         this.subreddits.add(subreddit);
     }
-    public void editSubreddit(Subreddit subreddit, int position) {
+    public void editSubreddit(Subreddit subreddit, Integer position) {
         this.subreddits.replace(subreddit, position);
     }
     public void setClientInfo(Context context) {

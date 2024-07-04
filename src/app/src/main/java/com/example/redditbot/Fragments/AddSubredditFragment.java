@@ -40,7 +40,7 @@ public class AddSubredditFragment extends Fragment {
     ImageButton cancelButton;
     TextView maxValue;
     SeekBar seekBar;
-    ArrayList<String> terms = new ArrayList<>();
+    final ArrayList<String> terms = new ArrayList<>();
     public AddSubredditFragment() {
         // Required empty public constructor
     }

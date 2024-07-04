@@ -47,30 +47,27 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.View
 
         // Set click listener on the end drawable
         holder.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.green_trash_can, 0);
-        holder.textView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d("Testing", String.valueOf(event.getAction()));
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Drawable drawable = holder.textView.getCompoundDrawablesRelative()[2];
-                    if (drawable != null) {
-                        Rect bounds = drawable.getBounds();
+        holder.textView.setOnTouchListener((v, event) -> {
+            Log.d("Testing", String.valueOf(event.getAction()));
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Drawable drawable = holder.textView.getCompoundDrawablesRelative()[2];
+                if (drawable != null) {
+                    Rect bounds = drawable.getBounds();
 
-                        int drawableRightEdge = holder.textView.getRight() - holder.textView.getPaddingRight();
-                        int drawableLeftEdge = drawableRightEdge - bounds.width();
-                        int clickX = (int) event.getX();
+                    int drawableRightEdge = holder.textView.getRight() - holder.textView.getPaddingRight();
+                    int drawableLeftEdge = drawableRightEdge - bounds.width();
+                    int clickX = (int) event.getX();
 
-                        if (clickX >= drawableLeftEdge && clickX <= drawableRightEdge) {
-                            removeItem(holder.getAdapterPosition());
-                            user.saveSubreddits(v.getContext());
-                        } else {
-                            listener.onItemClick(bundleToTransfer(holder.getAdapterPosition()));
-                        }
-                        return true;
+                    if (clickX >= drawableLeftEdge && clickX <= drawableRightEdge) {
+                        removeItem(holder.getAdapterPosition());
+                        user.saveSubreddits(v.getContext());
+                    } else {
+                        listener.onItemClick(bundleToTransfer(holder.getAdapterPosition()));
                     }
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
     }
 
@@ -90,7 +87,7 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.View
         return args;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        final TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

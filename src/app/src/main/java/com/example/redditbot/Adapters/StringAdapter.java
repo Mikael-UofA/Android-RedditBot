@@ -52,7 +52,7 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder
         notifyItemRemoved(position);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        final TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

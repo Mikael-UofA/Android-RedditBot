@@ -10,25 +10,16 @@ public class AgentInfo implements Serializable {
 
     public AgentInfo(){
     }
-    public AgentInfo(String agentClientId, String agentClientSecret, String agentAppName, String agentAuthorName) {
-        this.agentClientId = agentClientId;
-        this.agentClientSecret = agentClientSecret;
-        this.agentAppName = agentAppName;
-        this.agentAuthorName = agentAuthorName;
-    }
 
     public String getAgentClientId() {
         return agentClientId;
     }
-
     public String getAgentClientSecret() {
         return agentClientSecret;
     }
-
     public String getAgentAppName() {
         return agentAppName;
     }
-
     public String getAgentAuthorName() {
         return agentAuthorName;
     }
@@ -36,15 +27,12 @@ public class AgentInfo implements Serializable {
     public void setAgentClientId(String agentClientId) {
         this.agentClientId = agentClientId;
     }
-
     public void setAgentClientSecret(String agentClientSecret) {
         this.agentClientSecret = agentClientSecret;
     }
-
     public void setAgentAppName(String agentAppName) {
         this.agentAppName = agentAppName;
     }
-
     public void setAgentAuthorName(String agentAuthorName) {
         this.agentAuthorName = agentAuthorName;
     }

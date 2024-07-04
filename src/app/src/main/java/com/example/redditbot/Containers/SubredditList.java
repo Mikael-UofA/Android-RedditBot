@@ -36,8 +36,8 @@ public class SubredditList implements Serializable {
      * Otherwise will throw an error if the item to be deleted doesn't exist
      * @param subreddit The subreddit we want to remove from the list
      */
-    public void replace(Subreddit subreddit, int position) {
-        subreddits.remove(position);
+    public void replace(Subreddit subreddit, Integer position) {
+        subreddits.remove((int) position);
         subreddits.add(position, subreddit);
     }
     /**

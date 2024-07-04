@@ -12,13 +12,17 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_addSubredditFragment"
-            app:destination="@id/addSubredditFragment" />
+            app:destination="@id/addSubredditFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_editSubredditFragment"
             app:destination="@id/editSubredditFragment" />
         <action
             android:id="@+id/action_homeFragment_to_postsFragment"
-            app:destination="@id/postsFragment" />
+            app:destination="@id/postsFragment"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/addSubredditFragment"

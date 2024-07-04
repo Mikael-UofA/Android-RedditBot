@@ -53,12 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.karmaCount.setText(list2.get(1));
         holder.postTime.setText(getTime(post));
 
-        holder.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(postList.getRedditPost(holder.getAdapterPosition()));
-            }
-        });
+        holder.card.setOnClickListener(v -> listener.onItemClick(postList.getRedditPost(holder.getAdapterPosition())));
         
     }
     
@@ -100,7 +95,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         String karmaText = String.valueOf(karma);
         if (karma >= 1000) {
             karma = karma / 1000;
-            karmaText = String.valueOf(karma) + "k";
+            karmaText = karma + "k";
 
         }
 
@@ -136,15 +131,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        MaterialCardView card;
-        TextView subredditName;
-        TextView userName;
-        TextView postTime;
-        TextView title;
-        TextView selfText;
+        final MaterialCardView card;
+        final TextView subredditName;
+        final TextView userName;
+        final TextView postTime;
+        final TextView title;
+        final TextView selfText;
 
-        MaterialButton karmaCount;
-        MaterialButton commentsCount;
+        final MaterialButton karmaCount;
+        final MaterialButton commentsCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
