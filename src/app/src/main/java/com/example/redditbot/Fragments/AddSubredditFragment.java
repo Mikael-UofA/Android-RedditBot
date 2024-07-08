@@ -160,6 +160,11 @@ public class AddSubredditFragment extends Fragment {
         cancelButton.setOnClickListener(v -> Navigation.findNavController(view).popBackStack());
         return view;
     }
+
+    /**
+     * Use this method to check whether or not the user entered the correct subreddit information
+     * @return Boolean
+     * */
     public Boolean validCondition() {
         if (subredditName == null || terms.isEmpty() || subredditName.getError() != null) {
             return false;

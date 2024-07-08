@@ -65,8 +65,16 @@ import masecla.reddit4j.objects.RedditPost;
     
     @Override
     public int getItemCount() {
-        return postList.count();
+        return postList.size();
     }
+
+    /**
+     * This method retrieves and formats various string attributes from a RedditPost object,
+     * including the subreddit name, author name, title, and self-text.
+     *
+     * @param post The RedditPost object from which to extract the string attributes.
+     * @return An ArrayList of formatted string attributes.
+     */
     public ArrayList<String> getStrings(RedditPost post) {
         String subreddit = "r/" + post.getSubreddit();
         String user = "u/" + post.getAuthor();
@@ -88,6 +96,15 @@ import masecla.reddit4j.objects.RedditPost;
         return list;
 
     }
+
+    /**
+     * This method retrieves and formats various numerical attributes from a RedditPost object,
+     * including the number of comments and the score (karma). Large numbers are abbreviated
+     * with a 'k' for thousands.
+     *
+     * @param post The RedditPost object from which to extract the numerical attributes.
+     * @return An ArrayList of formatted numerical attributes.
+     */
     public ArrayList<String> getNumbers(RedditPost post) {
         int comments = post.getNumComments();
         int karma = post.getScore();
@@ -111,6 +128,15 @@ import masecla.reddit4j.objects.RedditPost;
 
         return list;
     }
+
+    /**
+     * This method calculates the time difference between when a RedditPost was created and
+     * the current time, and formats it into a readable string (e.g., "5m" for 5 minutes,
+     * "2h" for 2 hours, "3d" for 3 days).
+     *
+     * @param post The RedditPost object from which to extract the creation time.
+     * @return A formatted string representing the time difference.
+     */
     public String getTime(RedditPost post) {
         long created = post.getCreated();
 

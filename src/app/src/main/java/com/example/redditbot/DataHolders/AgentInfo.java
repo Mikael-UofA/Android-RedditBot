@@ -27,7 +27,6 @@ public class AgentInfo implements Serializable {
     public String getAgentAuthorName() {
         return agentAuthorName;
     }
-
     public void setAgentClientId(String agentClientId) {
         this.agentClientId = agentClientId;
     }

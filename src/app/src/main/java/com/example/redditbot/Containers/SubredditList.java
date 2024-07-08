@@ -26,9 +26,8 @@ public class SubredditList implements Serializable {
         subreddits.add(subreddit);
     }
     /**
-     * This returns a sorted list of subreddits
-     * @return
-     * Return the sorted list
+     * This returns a list of subreddits
+     * @return the list
      */
     public ArrayList<Subreddit> getSubreddits() {
         return subreddits;
@@ -43,17 +42,28 @@ public class SubredditList implements Serializable {
         subreddits.remove((int) position);
         subreddits.add(position, subreddit);
     }
+
     /**
-     * This returns how many subreddits are in the list
+     * This returns how many subreddit are in the list.
+     * @return an int
      */
     public int count() {
         return subreddits.size();
     }
 
+    /**
+     * This removes a subreddit from the list at a specific position
+     * @param pos The position of the subreddit that needs to be removed
+     */
     public void remove(int pos) {
         subreddits.remove(pos);
     }
 
+    /**
+     * This returns the Subreddit object at a specific position
+     * @param pos The position at which a Subreddit object needs to be retrieved
+     * @return a Subreddit object
+     */
     public Subreddit getSubreddit(int pos) {
         return subreddits.get(pos);
     }

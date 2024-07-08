@@ -68,6 +68,9 @@ public class SettingsFragment extends Fragment{
     }
 
 
+    /**
+     * Use this method to set the views for this fragment
+     */
     public void setViews() {
         agent = CurrentUser.getInstance().getAgent();
         String appNameString;

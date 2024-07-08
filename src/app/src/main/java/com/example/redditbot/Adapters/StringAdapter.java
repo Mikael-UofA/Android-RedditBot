@@ -52,11 +52,19 @@ import java.util.ArrayList;
     public int getItemCount() {
         return stringList.size();
     }
+    public ArrayList<String> getStringList() {
+        return stringList;
+    }
 
+    /**
+     * This removes a term from the list at a specific position
+     * @param position The position of the term that needs to be removed
+     */
     public void removeItem(int position) {
         stringList.remove(position);
         notifyItemRemoved(position);
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textView;
 
@@ -64,9 +72,5 @@ import java.util.ArrayList;
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
         }
-    }
-
-    public ArrayList<String> getStringList() {
-        return stringList;
     }
 }

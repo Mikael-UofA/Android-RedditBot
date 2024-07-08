@@ -35,12 +35,32 @@ public class Client {
     public Client() {
     }
 
+    /**
+     * Initializes the Reddit4J client with the provided agent information.
+     * This method configures the Reddit4J client using the provided AgentInfo object,
+     * which contains the client ID, client secret, app name, and author name. The client
+     * is then authenticated using a userless connection.
+     *
+     * @param agent The AgentInfo object containing the necessary authentication details.
+     * @throws AuthenticationException If there is an error during authentication.
+     * @throws IOException If there is an input/output error during the connection setup.
+     * @throws InterruptedException If the connection setup is interrupted.
+     */
     public void setInfo(AgentInfo agent) throws AuthenticationException, IOException, InterruptedException {
         client = Reddit4J.rateLimited()
                 .setClientId(agent.getAgentClientId()).setClientSecret(agent.getAgentClientSecret())
                 .setUserAgent(new UserAgentBuilder().appname(agent.getAgentAppName()).author(agent.getAgentAuthorName()).version("1.0"));
         client.userlessConnect();
     }
+
+    /**
+     * This method sends a request to Reddit to get the newest posts from the specified
+     * subreddit. It filters the posts based on the terms defined in the Subreddit
+     * object. The filtered posts are then returned through the provided callback.
+     *
+     * @param subreddit The Subreddit object containing the subreddit name, max posts, and terms for filtering.
+     * @param callBack The callback to handle the results.
+     */
     public void getTopPosts(Subreddit subreddit, PostCallBack callBack) {
         Thread thread = new Thread(() -> {
             SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
@@ -73,6 +93,15 @@ public class Client {
 
     }
 
+    /**
+     * This method iterates through a list of subreddits, retrieves the posts for each,
+     * and updates a progress bar to indicate the progress. The results from all subreddits
+     * are returned through the provided callback.
+     *
+     * @param list The SubredditList containing the subreddits to request posts from.
+     * @param progressBar The ProgressBar to update during the process.
+     * @param callBack The callback to handle the results.
+     */
     public void handleRequests(SubredditList list, ProgressBar progressBar, PostCallBack callBack) {
         List<RedditPost> returningPosts = Collections.synchronizedList(new ArrayList<>());
         AtomicInteger count = new AtomicInteger(list.getSubreddits().size());

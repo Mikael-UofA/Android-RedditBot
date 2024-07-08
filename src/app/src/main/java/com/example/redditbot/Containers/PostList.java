@@ -18,20 +18,27 @@ public class PostList implements Serializable {
     }
 
 
+    /**
+     * Adds all RedditPosts from a list to the list in this class.
+     * @param posts1 The list to retrieve all posts from
+     */
     public void addAll(List<RedditPost> posts1) {
         posts.addAll(posts1);
     }
+
+    /**
+     * This returns how many posts are in the list.
+     * @return an int
+     */
     public int size() {
         return posts.size();
     }
 
     /**
-     * This returns how many posts are in the list
+     * This returns the RedditPost object at a specific position
+     * @param pos The position at which a RedditPost object needs to be retrieved
+     * @return a RedditPost object
      */
-    public int count() {
-        return posts.size();
-    }
-
     public RedditPost getRedditPost(int pos) {
         return posts.get(pos);
     }

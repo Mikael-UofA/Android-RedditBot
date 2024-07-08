@@ -37,6 +37,9 @@ public class CurrentUser implements Serializable {
     public AgentInfo getAgent() {
         return agent;
     }
+    public Client getClient() {
+        return client;
+    }
     public void setAgent(AgentInfo agent) {
         this.agent = agent;
     }
@@ -52,6 +55,11 @@ public class CurrentUser implements Serializable {
     public void editSubreddit(Subreddit subreddit, Integer position) {
         this.subreddits.replace(subreddit, position);
     }
+
+    /**
+     * Use this method to authenticate the agent
+     * @param context The context required to make a Toast
+     */
     public void setClientInfo(Context context) {
         Handler handler = new Handler(Looper.getMainLooper());
         Thread thread = new Thread(() -> {
@@ -65,9 +73,11 @@ public class CurrentUser implements Serializable {
 
         thread.start();
     }
-    public Client getClient() {
-        return client;
-    }
+    /**
+     * Use this method to save the agent information into the Internal Storage
+     *
+     * @param context The context needed to access the storage
+     */
     public void saveAgentInfo(Context context) {
         try (FileOutputStream fos = context.openFileOutput("agent-info.ser", Context.MODE_PRIVATE);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -76,6 +86,12 @@ public class CurrentUser implements Serializable {
             Log.w("FileSaving", "Error: " + e);
         }
     }
+
+    /**
+     * Use this method to save the list of subreddit into the Internal Storage
+     *
+     * @param context The context needed to access the storage
+     */
     public void saveSubreddits(Context context) {
         try (FileOutputStream fos = context.openFileOutput("subreddits.ser", Context.MODE_PRIVATE);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
