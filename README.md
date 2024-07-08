@@ -15,5 +15,12 @@ In order to connect to Reddit you will first need to create an app. This is in f
 
 1. Go to the [reddit development portal](https://www.reddit.com/prefs/apps)
 2. Scroll to the bottom of the page, and click on the create another app... button
-3. Fill out the information for your application, and then click create. Remember to select the app type as Script!
-4. Proceed to take a note of your App ID and App secret
+   
+   ![create_another_app](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/a7605a4d-3d1b-4500-ba9d-0e4abe987621)
+
+4. Fill out the information for your application, and then click create. Remember to select the app type as Script!
+   ![create_application](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/02b19a1d-8b0c-48de-a2c9-883e97ca1459)
+
+6. Proceed to take a note of your App ID and App secret
+   ![info_needed](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/125cff5e-de9a-4e16-ba36-237910ab4771)
+
