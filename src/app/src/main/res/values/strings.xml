@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RedditBot</string>
+    <string name="app_name">RLS</string>
     <string name="subreddits">Subreddits</string>
     <string name="add_subreddit">Add Subreddit</string>
     <string name="add_new_subreddit">Add New Subreddit</string>
