@@ -12,7 +12,13 @@ import com.example.redditbot.R;
 
 import java.util.ArrayList;
 
-public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder> {
+/**
+ * Adapter class for managing and binding a list of strings to a RecyclerView.
+ * This adapter handles the display of a list of strings, allowing users to
+ * interact with each item in the list. It supports item click events and
+ * deletion of item by clicking on the end drawable of each list item.
+ */
+ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.ViewHolder> {
     private final ArrayList<String> stringList;
 
     public StringAdapter(ArrayList<String> stringList) {

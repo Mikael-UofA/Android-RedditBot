@@ -30,7 +30,8 @@ import java.util.MissingFormatArgumentException;
 import java.util.Objects;
 
 /**
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass.
+ * This fragment serves to edit the information of a subreddit already present in the subreddit list
  */
 public class EditSubredditFragment extends Fragment {
 
@@ -44,7 +45,6 @@ public class EditSubredditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_subreddit, container, false);
 
         if (getArguments() == null) {

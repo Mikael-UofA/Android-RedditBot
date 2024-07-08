@@ -5,6 +5,9 @@ import com.example.redditbot.DataHolders.Subreddit;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class is a wrapper for {@link ArrayList<Subreddit>}
+ */
 public class SubredditList implements Serializable {
     private final ArrayList<Subreddit> subreddits = new ArrayList<>();
 

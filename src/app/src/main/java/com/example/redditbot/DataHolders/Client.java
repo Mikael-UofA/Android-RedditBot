@@ -21,6 +21,9 @@ import masecla.reddit4j.objects.Sorting;
 import masecla.reddit4j.requests.SubredditPostListingEndpointRequest;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * This class is a wrapper for the Reddit4J class.
+ */
 public class Client {
 
     public interface PostCallBack {

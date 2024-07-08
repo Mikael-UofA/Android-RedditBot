@@ -29,12 +29,13 @@ import masecla.reddit4j.objects.RedditPost;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * This fragment serves as the main fragment of the app. This is where the app first opens to.
+ * It displays the subreddit list, and allows the user to make the bot look through the subs for
+ * key terms.
  */
 public class HomeFragment extends Fragment implements SubredditAdapter.onItemClickListener {
     private View view;
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override

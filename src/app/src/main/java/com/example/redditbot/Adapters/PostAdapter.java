@@ -19,7 +19,13 @@ import java.util.ArrayList;
 
 import masecla.reddit4j.objects.RedditPost;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
+/**
+ * Adapter class for managing and binding a list of Reddit posts to a RecyclerView.
+ * This adapter handles the display of a list of Reddit posts, allowing users to
+ * interact with each item in the list. It supports item click events to handle
+ * actions on individual posts.
+ */
+ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public interface onItemClickListener {
         void onItemClick(RedditPost post);
     }

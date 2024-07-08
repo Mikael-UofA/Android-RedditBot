@@ -3,6 +3,10 @@ package com.example.redditbot.DataHolders;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * This class holds the information of subreddit for the purposes of this app.
+ * This includes the name of the subreddit, the maximum number of posts to look through
+ * and the search terms to use.*/
 public class Subreddit implements Serializable {
     private final String name;
     private Integer maxPosts;

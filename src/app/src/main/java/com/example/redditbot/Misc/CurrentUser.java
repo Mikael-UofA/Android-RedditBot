@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * This class is a Simpleton that contains the agent information and the list of subreddit of the user.
+ * It is across the codebase to transfer and provide the information necessary.
+ */
 public class CurrentUser implements Serializable {
     private static final CurrentUser instance = new CurrentUser();
     private AgentInfo agent;

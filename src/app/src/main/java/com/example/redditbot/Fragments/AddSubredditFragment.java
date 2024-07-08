@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * This fragment serves to add a new subreddit to the subreddit list
  */
 public class AddSubredditFragment extends Fragment {
     TextInputEditText subredditName;
@@ -42,7 +42,6 @@ public class AddSubredditFragment extends Fragment {
     SeekBar seekBar;
     final ArrayList<String> terms = new ArrayList<>();
     public AddSubredditFragment() {
-        // Required empty public constructor
     }
 
     @Override

@@ -12,6 +12,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
+/**
+ * The first Activity opened when the app is opened.
+ * Contains simply the logo of the app and ends after 2 seconds.
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     @Override

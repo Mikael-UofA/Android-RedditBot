@@ -18,7 +18,12 @@ import com.example.redditbot.Containers.SubredditList;
 import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.R;
 
-
+/**
+ * Adapter class for managing and binding subreddit data to a RecyclerView.
+ * This adapter handles the display of a list of subreddits, allowing users to
+ * interact with each item in the list. It supports item click events and
+ * deletion of item by clicking on the end drawable of each list item.
+ */
 public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.ViewHolder>{
     public interface onItemClickListener {
         void onItemClick(Bundle args);
