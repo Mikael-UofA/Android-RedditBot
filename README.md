@@ -1,5 +1,7 @@
 # Reddit Lazy Scroll (RLS)
 
+![image](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/8fc87152-4a1c-489d-9a62-89ce92b0c60d)
+
 Welcome to Reddit Lazy Scroll (RLS), an intuitive app designed to streamline your Reddit browsing experience by filtering posts based on your key terms. Easily connect to your Reddit application, add your favorite subreddits, and let RLS do the rest.
 
 ## Features
@@ -24,3 +26,7 @@ In order to connect to Reddit you will first need to create an app. This is in f
 6. Proceed to take a note of your App ID and App secret
    ![info_needed](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/125cff5e-de9a-4e16-ba36-237910ab4771)
 
+7. Open the app and create your agent
+   
+![image](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/89944ea8-a8b6-479b-b1c3-aca37c209d9d)
+![image](https://github.com/Mikael-UofA/Android-RedditBot/assets/144495637/3334a61e-79f0-41c8-b9fc-a920a8cd863d) 
