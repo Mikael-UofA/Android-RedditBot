@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.redditbot.R;
 
+
 /**
- * create an instance of this fragment.
+ * The Navigation Host for the HomeFragment
  */
 public class HomeNavHost extends Fragment {
     public HomeNavHost() {

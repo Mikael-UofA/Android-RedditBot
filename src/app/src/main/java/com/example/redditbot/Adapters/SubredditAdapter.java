@@ -18,7 +18,12 @@ import com.example.redditbot.Containers.SubredditList;
 import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.R;
 
-
+/**
+ * Adapter class for managing and binding subreddit data to a RecyclerView.
+ * This adapter handles the display of a list of subreddits, allowing users to
+ * interact with each item in the list. It supports item click events and
+ * deletion of item by clicking on the end drawable of each list item.
+ */
 public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.ViewHolder>{
     public interface onItemClickListener {
         void onItemClick(Bundle args);
@@ -76,16 +81,27 @@ public class SubredditAdapter extends RecyclerView.Adapter<SubredditAdapter.View
         return subList.count();
     }
 
+    /**
+     * This removes a subreddit from the list at a specific position
+     * @param position The position of the subreddit that needs to be removed
+     */
     public void removeItem(int position) {
         subList.remove(position);
         notifyItemRemoved(position);
     }
+
+    /**
+     * This method creates a bundle to pass to {@link com.example.redditbot.Fragments.EditSubredditFragment}
+     * @param position The position of the subreddit clicked in the list
+     * @return a Bundle
+     */
     public Bundle bundleToTransfer(int position) {
         Bundle args = new Bundle();
         args.putSerializable("subreddit", subList.getSubreddit(position));
         args.putSerializable("position", position);
         return args;
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textView;
 

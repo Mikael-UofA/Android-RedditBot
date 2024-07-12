@@ -2,6 +2,10 @@ package com.example.redditbot.DataHolders;
 
 import java.io.Serializable;
 
+/**
+ * This class holds the information of an agent for the purposes of this app.
+ * This includes the client id, client secret, the app name, and the author.
+ */
 public class AgentInfo implements Serializable {
     private String agentClientId;
     private String agentClientSecret;
@@ -23,7 +27,6 @@ public class AgentInfo implements Serializable {
     public String getAgentAuthorName() {
         return agentAuthorName;
     }
-
     public void setAgentClientId(String agentClientId) {
         this.agentClientId = agentClientId;
     }

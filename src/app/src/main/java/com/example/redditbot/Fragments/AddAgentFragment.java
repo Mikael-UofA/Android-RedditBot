@@ -20,7 +20,8 @@ import com.example.redditbot.R;
 import java.util.Objects;
 
 /**
- * create an instance of this fragment.
+ * A simple {@link DialogFragment} subclass.
+ * This dialog fragment serves to add/save or delete the information of a bot for authentication.
  */
 public class AddAgentFragment extends DialogFragment {
 

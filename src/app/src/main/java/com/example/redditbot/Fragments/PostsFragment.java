@@ -21,7 +21,9 @@ import com.example.redditbot.R;
 import masecla.reddit4j.objects.RedditPost;
 
 /**
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass.
+ * This fragment serves view all the posts from the subreddit in the list that have at least
+ * one of the key search terms.
  */
 public class PostsFragment extends Fragment implements PostAdapter.onItemClickListener {
 

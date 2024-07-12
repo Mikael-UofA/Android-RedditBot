@@ -15,16 +15,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 
+import masecla.reddit4j.objects.Sorting;
+
+/**
+ * This class is a Simpleton that contains the agent information and the list of subreddit of the user.
+ * It is across the codebase to transfer and provide the information necessary.
+ */
 public class CurrentUser implements Serializable {
     private static final CurrentUser instance = new CurrentUser();
     private AgentInfo agent;
     private SubredditList subreddits;
     private final Client client;
+    private final ArrayList<String> sortingList = new ArrayList<>();
 
     private CurrentUser() {
         this.subreddits = new SubredditList();
         this.client = new Client();
+        Collections.addAll(this.sortingList, Sorting.HOT.getValue(), Sorting.NEW.getValue(),
+                Sorting.TOP.getValue(), Sorting.CONTROVERSIAL.getValue(), Sorting.RISING.getValue());
     }
 
     public static CurrentUser getInstance() {
@@ -32,6 +43,12 @@ public class CurrentUser implements Serializable {
     }
     public AgentInfo getAgent() {
         return agent;
+    }
+    public Client getClient() {
+        return client;
+    }
+    public ArrayList<String> getSortingList() {
+        return sortingList;
     }
     public void setAgent(AgentInfo agent) {
         this.agent = agent;
@@ -48,6 +65,11 @@ public class CurrentUser implements Serializable {
     public void editSubreddit(Subreddit subreddit, Integer position) {
         this.subreddits.replace(subreddit, position);
     }
+
+    /**
+     * Use this method to authenticate the agent
+     * @param context The context required to make a Toast
+     */
     public void setClientInfo(Context context) {
         Handler handler = new Handler(Looper.getMainLooper());
         Thread thread = new Thread(() -> {
@@ -61,9 +83,11 @@ public class CurrentUser implements Serializable {
 
         thread.start();
     }
-    public Client getClient() {
-        return client;
-    }
+    /**
+     * Use this method to save the agent information into the Internal Storage
+     *
+     * @param context The context needed to access the storage
+     */
     public void saveAgentInfo(Context context) {
         try (FileOutputStream fos = context.openFileOutput("agent-info.ser", Context.MODE_PRIVATE);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -72,6 +96,12 @@ public class CurrentUser implements Serializable {
             Log.w("FileSaving", "Error: " + e);
         }
     }
+
+    /**
+     * Use this method to save the list of subreddit into the Internal Storage
+     *
+     * @param context The context needed to access the storage
+     */
     public void saveSubreddits(Context context) {
         try (FileOutputStream fos = context.openFileOutput("subreddits.ser", Context.MODE_PRIVATE);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {

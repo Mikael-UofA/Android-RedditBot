@@ -18,7 +18,7 @@ import com.example.redditbot.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * This fragment serves to add or remove the agent information for authentication
  */
 public class SettingsFragment extends Fragment{
 
@@ -68,6 +68,9 @@ public class SettingsFragment extends Fragment{
     }
 
 
+    /**
+     * Use this method to set the views for this fragment
+     */
     public void setViews() {
         agent = CurrentUser.getInstance().getAgent();
         String appNameString;

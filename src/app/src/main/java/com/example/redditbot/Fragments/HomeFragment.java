@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.redditbot.Misc.CurrentUser;
@@ -26,15 +28,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import masecla.reddit4j.objects.RedditPost;
+import masecla.reddit4j.objects.Sorting;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * This fragment serves as the main fragment of the app. This is where the app first opens to.
+ * It displays the subreddit list, and allows the user to make the bot look through the subs for
+ * key terms.
  */
 public class HomeFragment extends Fragment implements SubredditAdapter.onItemClickListener {
     private View view;
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -45,7 +49,6 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         CurrentUser user = CurrentUser.getInstance();
@@ -54,7 +57,6 @@ public class HomeFragment extends Fragment implements SubredditAdapter.onItemCli
         ImageButton addButton = view.findViewById(R.id.add_button);
         ImageButton lookupButton = view.findViewById(R.id.lookup_button);
         ProgressBar progressBar = view.findViewById(R.id.progress_bar);
-
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         subreddits.addItemDecoration(new SpaceItemDecoration(spacingInPixels));

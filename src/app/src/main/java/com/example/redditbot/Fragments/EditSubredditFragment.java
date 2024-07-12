@@ -2,6 +2,7 @@ package com.example.redditbot.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.redditbot.Misc.CurrentUser;
 import com.example.redditbot.Misc.SpaceItemDecoration;
@@ -29,8 +33,11 @@ import java.util.ArrayList;
 import java.util.MissingFormatArgumentException;
 import java.util.Objects;
 
+import masecla.reddit4j.objects.Sorting;
+
 /**
- * create an instance of this fragment.
+ * A simple {@link Fragment} subclass.
+ * This fragment serves to edit the information of a subreddit already present in the subreddit list
  */
 public class EditSubredditFragment extends Fragment {
 
@@ -44,7 +51,6 @@ public class EditSubredditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_subreddit, container, false);
 
         if (getArguments() == null) {
@@ -52,6 +58,7 @@ public class EditSubredditFragment extends Fragment {
         } else if (getArguments().get("subreddit") == null) {
             throw new MissingFormatArgumentException("Failed to pass subreddit in the bundle");
         }
+        CurrentUser user = CurrentUser.getInstance();
         TextView title = view.findViewById(R.id.add_subreddit_textview);
         TextView maxValue = view.findViewById(R.id.max_posts);
         SeekBar seekBar = view.findViewById(R.id.seekBar);
@@ -60,13 +67,21 @@ public class EditSubredditFragment extends Fragment {
         ImageButton confirmButton = view.findViewById(R.id.done_button);
         ImageButton cancelButton = view.findViewById(R.id.cancel_button);
 
+        Spinner spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(), R.layout.item_spinner, user.getSortingList());
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter2);
+
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
 
-        CurrentUser user = CurrentUser.getInstance();
         Subreddit subreddit = (Subreddit) getArguments().get("subreddit");
-        Integer position = (Integer) getArguments().get("position");
         assert subreddit != null;
+        String sorting = subreddit.getSorting().toString();
+        int position2 = user.getSortingList().indexOf(sorting.toLowerCase());
+        spinner.setSelection(position2);
+
+        Integer position = (Integer) getArguments().get("position");
         String titleText = "r/" + subreddit.getName();
         title.setText(titleText);
         ArrayList<String> terms = subreddit.getTerms();
@@ -133,12 +148,33 @@ public class EditSubredditFragment extends Fragment {
         confirmButton.setOnClickListener(v -> {
             subreddit.setMaxPosts(seekBar.getProgress());
             subreddit.setTerms(adapter.getStringList());
+            subreddit.setSorting(getSorting(spinner.getSelectedItem().toString()));
             user.editSubreddit(subreddit, position);
             user.saveSubreddits(requireContext());
             Navigation.findNavController(view).popBackStack();
         });
         cancelButton.setOnClickListener(v -> Navigation.findNavController(view).popBackStack());
         return view;
+    }
+
+    @NonNull
+    private static Sorting getSorting(String thing) {
+        Sorting sorting;
+        if (Objects.equals(thing, "hot")) {
+            sorting = Sorting.HOT;
+        } else if (Objects.equals(thing, "new")) {
+            sorting = Sorting.NEW;
+        }
+        else if (Objects.equals(thing, "controversial")) {
+            sorting = Sorting.CONTROVERSIAL;
+        }
+        else if (Objects.equals(thing, "rising")) {
+            sorting = Sorting.RISING;
+        }
+        else {
+            sorting = Sorting.TOP;
+        }
+        return sorting;
     }
 
 }

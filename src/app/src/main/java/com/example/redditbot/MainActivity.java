@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+    /**
+     * Use this method to load the info of the agent from Internal Storage if it exists
+     *
+     * @param context The context needed to access the storage
+     * @return AgentInfo instance*/
     public AgentInfo loadAgentInfo(Context context) {
         try (FileInputStream fis = context.openFileInput("agent-info.ser");
              ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -84,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
+    /**
+     * Use this method to load the list of subreddits from Internal Storage if it exists
+     *
+     * @param context The context needed to access the storage
+     * @return SubredditList instance*/
     public SubredditList loadSubreddits(Context context) {
         try (FileInputStream fis = context.openFileInput("subreddits.ser");
              ObjectInputStream ois = new ObjectInputStream(fis)) {

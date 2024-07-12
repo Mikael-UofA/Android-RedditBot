@@ -6,6 +6,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * This class adds space between the different elements of a RecyclerView.
+ */
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final int spacing;
 
