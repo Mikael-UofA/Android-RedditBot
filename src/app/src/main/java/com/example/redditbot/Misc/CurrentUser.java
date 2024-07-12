@@ -15,6 +15,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import masecla.reddit4j.objects.Sorting;
 
 /**
  * This class is a Simpleton that contains the agent information and the list of subreddit of the user.
@@ -25,10 +29,13 @@ public class CurrentUser implements Serializable {
     private AgentInfo agent;
     private SubredditList subreddits;
     private final Client client;
+    private final ArrayList<String> sortingList = new ArrayList<>();
 
     private CurrentUser() {
         this.subreddits = new SubredditList();
         this.client = new Client();
+        Collections.addAll(this.sortingList, Sorting.HOT.getValue(), Sorting.NEW.getValue(),
+                Sorting.TOP.getValue(), Sorting.CONTROVERSIAL.getValue(), Sorting.RISING.getValue());
     }
 
     public static CurrentUser getInstance() {
@@ -39,6 +46,9 @@ public class CurrentUser implements Serializable {
     }
     public Client getClient() {
         return client;
+    }
+    public ArrayList<String> getSortingList() {
+        return sortingList;
     }
     public void setAgent(AgentInfo agent) {
         this.agent = agent;

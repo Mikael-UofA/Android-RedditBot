@@ -2,6 +2,7 @@ package com.example.redditbot.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.redditbot.Adapters.StringAdapter;
@@ -27,6 +30,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import masecla.reddit4j.objects.Sorting;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +68,11 @@ public class AddSubredditFragment extends Fragment {
         cancelButton = view.findViewById(R.id.cancel_button);
         maxValue = view.findViewById(R.id.max_posts);
         seekBar = view.findViewById(R.id.seekBar);
+
+        Spinner spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(), R.layout.item_spinner, user.getSortingList());
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter2);
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         recyclerView.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
@@ -151,7 +161,9 @@ public class AddSubredditFragment extends Fragment {
         });
         confirmButton.setOnClickListener(v -> {
             if (validCondition()) {
-                Subreddit subreddit = new Subreddit(Objects.requireNonNull(subredditName.getText()).toString().trim(), seekBar.getProgress(), adapter.getStringList());
+                String thing = (String) spinner.getSelectedItem();
+                Sorting sorting = getSorting(thing);
+                Subreddit subreddit = new Subreddit(Objects.requireNonNull(subredditName.getText()).toString().trim(), seekBar.getProgress(), adapter.getStringList(), sorting);
                 user.addSubreddit(subreddit);
                 user.saveSubreddits(requireContext());
                 Navigation.findNavController(view).popBackStack();
@@ -159,6 +171,26 @@ public class AddSubredditFragment extends Fragment {
         });
         cancelButton.setOnClickListener(v -> Navigation.findNavController(view).popBackStack());
         return view;
+    }
+
+    @NonNull
+    private static Sorting getSorting(String thing) {
+        Sorting sorting;
+        if (Objects.equals(thing, "hot")) {
+            sorting = Sorting.HOT;
+        } else if (Objects.equals(thing, "new")) {
+            sorting = Sorting.NEW;
+        }
+        else if (Objects.equals(thing, "controversial")) {
+            sorting = Sorting.CONTROVERSIAL;
+        }
+        else if (Objects.equals(thing, "rising")) {
+            sorting = Sorting.RISING;
+        }
+        else {
+            sorting = Sorting.TOP;
+        }
+        return sorting;
     }
 
     /**

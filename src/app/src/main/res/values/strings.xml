@@ -33,5 +33,6 @@
     <string name="home">Home</string>
     <string name="agent">Agent</string>
     <string name="terms">Term</string>
+    <string name="sorting">Sorting:</string>
 
 </resources>

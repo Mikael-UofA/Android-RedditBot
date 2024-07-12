@@ -31,7 +31,6 @@ public class Client {
         void onResult(List<RedditPost> posts);
     }
     private Reddit4J client;
-    private final Sorting sorting = Sorting.NEW;
     public Client() {
     }
 
@@ -63,7 +62,7 @@ public class Client {
      */
     public void getTopPosts(Subreddit subreddit, PostCallBack callBack) {
         Thread thread = new Thread(() -> {
-            SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), sorting);
+            SubredditPostListingEndpointRequest request = client.getSubredditPosts(subreddit.getName(), subreddit.getSorting());
             List<RedditPost> posts;
             try {
                 posts = request.submit();
